@@ -585,6 +585,9 @@ public class Resident_Profile extends javax.swing.JFrame {
 
     private void home1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1ActionPerformed
         // TODO add your handling code here:
+        Resident_Profile obj = new Resident_Profile(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home1ActionPerformed
 
     private void home3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home3ActionPerformed

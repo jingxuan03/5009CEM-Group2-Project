@@ -316,8 +316,8 @@ public class Resident_Account extends javax.swing.JFrame {
     }//GEN-LAST:event_ResidentActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
-//        Resident_Account account = new Resident_Account();
-//        account.setVisible(true);
+        Resident_Account account = new Resident_Account();
+        account.setVisible(true);
     }//GEN-LAST:event_AccountActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed

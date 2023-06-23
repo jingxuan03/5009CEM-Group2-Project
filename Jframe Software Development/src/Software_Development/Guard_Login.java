@@ -5,6 +5,12 @@
 package Software_Development;
 
 import java.awt.Color;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,9 +37,9 @@ public class Guard_Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        editGuardId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        editGuardPass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -48,22 +54,22 @@ public class Guard_Login extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        editGuardId.setBackground(new java.awt.Color(255, 255, 255));
+        editGuardId.setForeground(new java.awt.Color(0, 0, 0));
+        editGuardId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                editGuardIdActionPerformed(evt);
             }
         });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Guard ID:");
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setForeground(new java.awt.Color(0, 0, 0));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        editGuardPass.setBackground(new java.awt.Color(255, 255, 255));
+        editGuardPass.setForeground(new java.awt.Color(0, 0, 0));
+        editGuardPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                editGuardPassActionPerformed(evt);
             }
         });
 
@@ -71,6 +77,11 @@ public class Guard_Login extends javax.swing.JFrame {
         jLabel2.setText("Password:");
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,8 +100,8 @@ public class Guard_Login extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editGuardId, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editGuardPass, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))
                         .addGap(42, 42, 42))))
@@ -109,11 +120,11 @@ public class Guard_Login extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editGuardId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editGuardPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(147, Short.MAX_VALUE))
@@ -139,14 +150,76 @@ public class Guard_Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void editGuardIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGuardIdActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_editGuardIdActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void editGuardPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGuardPassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_editGuardPassActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         try {
+            String url = "jdbc:mysql://localhost:3306/aps";
+            String username = "root";
+            String dbpassword = "";
+            Connection connection = null;
+
+            //open connection
+            connection = DriverManager.getConnection(url, username, dbpassword);
+
+            String id = editGuardId.getText();
+            String guardPassword = editGuardPass.getText();
+
+            // Retrieve the hashed password from the Manager table
+            String getPasswordQuery = "SELECT password FROM guard WHERE id = ?";
+            PreparedStatement getPasswordStatement = connection.prepareStatement(getPasswordQuery);
+            getPasswordStatement.setString(1, id);
+            ResultSet passwordResult = getPasswordStatement.executeQuery();
+
+            if (passwordResult.next()) {
+                String storedPassword = passwordResult.getString("password");
+
+                // Hash the entered password
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(guardPassword.getBytes());
+                byte[] hashedBytes = md.digest();
+                StringBuilder hashedPassword = new StringBuilder();
+                for (byte b : hashedBytes) {
+                    hashedPassword.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+                }
+
+                // Compare the hashed passwords
+                if (hashedPassword.toString().equals(storedPassword)) {
+                    // Passwords match, proceed to the home page
+//                    dispose(); // Close login page
+//                    Resident_Home homePage = new Resident_Home();
+//                    homePage.show();
+                    JOptionPane.showMessageDialog(this, "Login successfully.");
+
+                } else {
+                    // Passwords don't match
+                    JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                    editGuardId.setText("");
+                    editGuardPass.setText("");
+                }
+            } else {
+                // ID not found
+                JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                editGuardId.setText("");
+                editGuardPass.setText("");
+            }
+
+            connection.close();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, e);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,13 +257,13 @@ public class Guard_Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField editGuardId;
+    private javax.swing.JPasswordField editGuardPass;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

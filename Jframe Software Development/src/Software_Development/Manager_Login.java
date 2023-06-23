@@ -13,6 +13,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.security.NoSuchAlgorithmException;  
+import java.security.MessageDigest; 
+//import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -189,27 +193,47 @@ public class Manager_Login extends javax.swing.JFrame {
             String id = editManagerId.getText();
             String managerPassword = editManagerPass.getText();
 
-            Statement stm = connection.createStatement();
-            //mysql query to run
-            String sql = "SELECT * FROM Manager WHERE id = '" + id + "' AND password = '" + managerPassword + "'";
-            ResultSet rs = stm.executeQuery(sql);
-            
-            if(rs.next()){
-                //if username and password is true then go to home page
-                dispose();//close login page
-                Guard_Login guard = new Guard_Login();
-                guard.show();
-            }else{
-                //if username and password is wrong
-                JOptionPane.showMessageDialog(this, "username or password is wrong.");
-                editManagerPass.setText("");
+            // Retrieve the hashed password from the Manager table
+            String getPasswordQuery = "SELECT password FROM manager WHERE id = ?";
+            PreparedStatement getPasswordStatement = connection.prepareStatement(getPasswordQuery);
+            getPasswordStatement.setString(1, id);
+            ResultSet passwordResult = getPasswordStatement.executeQuery();
+
+            if (passwordResult.next()) {
+                String storedPassword = passwordResult.getString("password");
+
+                // Hash the entered password
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(managerPassword.getBytes());
+                byte[] hashedBytes = md.digest();
+                StringBuilder hashedPassword = new StringBuilder();
+                for (byte b : hashedBytes) {
+                    hashedPassword.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+                }
+
+                // Compare the hashed passwords
+                if (hashedPassword.toString().equals(storedPassword)) {
+                    // Passwords match, proceed to the home page
+                    dispose(); // Close login page
+                    Resident_Home homePage = new Resident_Home();
+                    homePage.show();
+                } else {
+                    // Passwords don't match
+                    JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                    editManagerId.setText("");
+                    editManagerPass.setText("");
+                }
+            } else {
+                // ID not found
+                JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
                 editManagerId.setText("");
+                editManagerPass.setText("");
             }
-            
+
             connection.close();
-            
+
         } catch (Exception e) {
-            //System.out.println("Failed to connect to the database!");
+
             JOptionPane.showMessageDialog(this, e);
             e.printStackTrace();
         }

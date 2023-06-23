@@ -4,6 +4,12 @@
  */
 package Software_Development;
 import java.awt.Color;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,11 +36,11 @@ public class Resident_Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        editUnitNo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        editResidentPass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,32 +55,32 @@ public class Resident_Login extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        editUnitNo.setBackground(new java.awt.Color(255, 255, 255));
+        editUnitNo.setForeground(new java.awt.Color(0, 0, 0));
+        editUnitNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                editUnitNoActionPerformed(evt);
             }
         });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Resident ID:");
+        jLabel3.setText("Unit No:");
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setForeground(new java.awt.Color(0, 0, 0));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        editResidentPass.setBackground(new java.awt.Color(255, 255, 255));
+        editResidentPass.setForeground(new java.awt.Color(0, 0, 0));
+        editResidentPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                editResidentPassActionPerformed(evt);
             }
         });
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password:");
 
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginBtn.setText("Login");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginBtnActionPerformed(evt);
             }
         });
 
@@ -95,10 +101,10 @@ public class Resident_Login extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editUnitNo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editResidentPass, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(loginBtn))
                         .addGap(42, 42, 42))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -114,13 +120,13 @@ public class Resident_Login extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editUnitNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editResidentPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(loginBtn)
                 .addContainerGap(153, Short.MAX_VALUE))
         );
 
@@ -144,18 +150,77 @@ public class Resident_Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void editUnitNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUnitNoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_editUnitNoActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void editResidentPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editResidentPassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_editResidentPassActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
+        try {
+            String url = "jdbc:mysql://localhost:3306/aps";
+            String username = "root";
+            String dbpassword = "";
+            Connection connection = null;
+
+            //open connection
+            connection = DriverManager.getConnection(url, username, dbpassword);
+
+            String unitNo = editUnitNo.getText();
+            String residentPassword = editResidentPass.getText();
+
+            // Retrieve the hashed password from the Manager table
+            String getPasswordQuery = "SELECT unitNo, password, id FROM resident WHERE unitNo = ?";
+            PreparedStatement getPasswordStatement = connection.prepareStatement(getPasswordQuery);
+            getPasswordStatement.setString(1, unitNo);
+            ResultSet passwordResult = getPasswordStatement.executeQuery();
+
+            if (passwordResult.next()) {
+                String storedPassword = passwordResult.getString("password");
+                int userId = passwordResult.getInt("id");
+                 
+                // Hash the entered password
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(residentPassword.getBytes());
+                byte[] hashedBytes = md.digest();
+                StringBuilder hashedPassword = new StringBuilder();
+                for (byte b : hashedBytes) {
+                    hashedPassword.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+                }
+
+                // Compare the hashed passwords
+                if (hashedPassword.toString().equals(storedPassword)) {
+                    // Passwords match, proceed to the home page
+                    
+                    dispose(); // Close login page
+                    Resident_Profile profile = new Resident_Profile(userId);
+                    //profile.show();
+                    profile.setVisible(true);
+                } else {
+                    // Passwords don't match
+                    JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                    editUnitNo.setText("");
+                    editResidentPass.setText("");
+                }
+            } else {
+                // ID not found
+                JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                editUnitNo.setText("");
+                editResidentPass.setText("");
+            }
+
+            connection.close();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, e);
+            e.printStackTrace();
+        }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,13 +258,13 @@ public class Resident_Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPasswordField editResidentPass;
+    private javax.swing.JTextField editUnitNo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton loginBtn;
     // End of variables declaration//GEN-END:variables
 }

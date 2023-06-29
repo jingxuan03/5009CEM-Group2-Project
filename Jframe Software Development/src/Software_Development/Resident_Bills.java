@@ -10,10 +10,13 @@ package Software_Development;
  */
 public class Resident_Bills extends javax.swing.JFrame {
 
+    private int userId;
+    
     /**
      * Creates new form Resident_Profile
      */
-    public Resident_Bills() {
+    public Resident_Bills(int userId) {
+        this.userId = userId;
         initComponents();
     }
 
@@ -166,7 +169,7 @@ public class Resident_Bills extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setForeground(new java.awt.Color(51, 0, 255));
-        jLabel4.setText("May, 2023 Water and Electric Bills");
+        jLabel4.setText("May, 2023 Maintenance & Sinking Funds");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -285,7 +288,7 @@ public class Resident_Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_homeActionPerformed
 
     private void home1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1ActionPerformed
-        Resident_Profile obj= new Resident_Profile();// obj created for class Second()
+        Resident_Profile obj= new Resident_Profile(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
     }//GEN-LAST:event_home1ActionPerformed
@@ -295,7 +298,7 @@ public class Resident_Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_home2ActionPerformed
 
     private void home3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home3ActionPerformed
-        Resident_Forum obj= new Resident_Forum();// obj created for class Second()
+        Resident_Forum obj= new Resident_Forum(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
     }//GEN-LAST:event_home3ActionPerformed
@@ -327,11 +330,16 @@ public class Resident_Bills extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        if (args.length < 1) {
+            System.out.println("Usage: java Software_Development.Resident_Profile <userId>");
+            System.exit(1);
+        }
 
+        int userId = Integer.parseInt(args[0]);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Bills().setVisible(true);
+                new Resident_Bills(userId).setVisible(true);
             }
         });
     }

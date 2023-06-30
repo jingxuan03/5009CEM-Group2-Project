@@ -10,10 +10,12 @@ package Software_Development;
  */
 public class Resident_Bills_Details extends javax.swing.JFrame {
 
+    private int userId;
     /**
      * Creates new form Resident_Profile
      */
-    public Resident_Bills_Details() {
+    public Resident_Bills_Details(int userId) {
+        this.userId = userId;
         initComponents();
     }
 
@@ -309,19 +311,27 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
-        // TODO add your handling code here:
+        Resident_Home obj= new Resident_Home();// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_homeActionPerformed
 
     private void home1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1ActionPerformed
-        // TODO add your handling code here:
+       Resident_Profile obj= new Resident_Profile(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home1ActionPerformed
 
     private void home2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home2ActionPerformed
-        // TODO add your handling code here:
+        Resident_Bills obj= new Resident_Bills(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home2ActionPerformed
 
     private void home3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home3ActionPerformed
-        // TODO add your handling code here:
+        Resident_Forum obj= new Resident_Forum(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -357,11 +367,16 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        if (args.length < 1) {
+            System.out.println("Usage: java Software_Development.Resident_Profile <userId>");
+            System.exit(1);
+        }
 
+        int userId = Integer.parseInt(args[0]);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Bills_Details().setVisible(true);
+                new Resident_Bills_Details(userId).setVisible(true);
             }
         });
     }

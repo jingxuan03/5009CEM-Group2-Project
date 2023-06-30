@@ -4,26 +4,33 @@
  */
 package Software_Development;
 
-import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author User
  */
-public class Resident_Forum_Creation extends javax.swing.JFrame {
+public class Management_Forum_Content extends javax.swing.JFrame {
 
     private int userId;
+    private int forumId;
+    private int commentCount = 0;
+    
     /**
      * Creates new form Resident_Profile
      */
-    public Resident_Forum_Creation(int userId) {
+    public Management_Forum_Content(int userId, int forumId) {
         this.userId = userId;
+        this.forumId = forumId;
         initComponents();
         
         try {
@@ -33,7 +40,53 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
             Connection connection = null;
             connection = DriverManager.getConnection(url, username, dbpassword);
             
+            String sql = "SELECT user_name, title, date, content FROM management_forum WHERE forum_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, forumId);
             
+            // Execute the query
+            ResultSet resultSet = statement.executeQuery();
+            // Process the result
+            if (resultSet.next()) {
+                String names = resultSet.getString("user_name");
+                String titles = resultSet.getString("title");
+                String dates = resultSet.getString("date");
+                String contents = resultSet.getString("content");
+                
+
+                name.setText(names);
+                title.setText(titles);
+                date.setText(dates);
+                content.setText(contents);
+            }
+            
+            String sql2 = "SELECT user_name, date, comment FROM forum_comment WHERE forum_id = ?";
+            PreparedStatement statement2 = connection.prepareStatement(sql2);
+            statement2.setInt(1, forumId); // this one is set for the sql to receive under the ? space
+            
+            ResultSet resultSet2 = statement2.executeQuery(); //problem here
+            // Process the result
+            while (resultSet2.next()) {
+                String names = resultSet2.getString("user_name");
+                String dates = resultSet2.getString("date");
+                String titles = resultSet2.getString("comment");
+                String o = (" (");
+                String c = (")");
+                
+                //add string array for storing data into jtable
+                String tbData[] = {names+o+dates+c};
+                String tbData2[] = {titles};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                
+                //add string array data into jtable
+                tblModel.addRow(tbData);
+                tblModel.addRow(tbData2);
+            }
+            
+            resultSet.close();
+            resultSet2.close();
+            statement.close();
+            statement2.close();
             connection.close();
 
         } catch (Exception e) {
@@ -52,22 +105,39 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         home = new javax.swing.JButton();
         home2 = new javax.swing.JButton();
         home3 = new javax.swing.JButton();
         home1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
+        name = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cforum_title = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        date = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        cforum_content = new javax.swing.JTextArea();
-        post = new javax.swing.JButton();
+        content = new javax.swing.JTextPane();
+        comment = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        title = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,22 +145,34 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Create Forum");
+        jLabel1.setText("Forum");
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -162,97 +244,159 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Create a Forum");
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel2.setText("Title :");
+        name.setBackground(new java.awt.Color(153, 153, 153));
+        name.setForeground(new java.awt.Color(153, 153, 153));
+        name.setText("name");
 
-        cforum_title.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Management Office");
+
+        date.setForeground(new java.awt.Color(153, 153, 153));
+        date.setText("date");
+
+        content.setEditable(false);
+        content.setToolTipText("");
+        content.setVerifyInputWhenFocusTarget(false);
+        jScrollPane1.setViewportView(content);
+
+        comment.setText("Leave a Comment..");
+        comment.setFocusCycleRoot(true);
+        comment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                commentMouseEntered(evt);
+            }
+        });
+        comment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cforum_titleActionPerformed(evt);
+                commentActionPerformed(evt);
+            }
+        });
+        comment.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                commentKeyPressed(evt);
             }
         });
 
-        jLabel4.setText("Contents :");
+        jPanel6.setBackground(new java.awt.Color(51, 51, 51));
 
-        cforum_content.setColumns(20);
-        cforum_content.setRows(5);
-        jScrollPane1.setViewportView(cforum_content);
+        title.setBackground(new java.awt.Color(255, 255, 255));
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setText("title");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(title))
+        );
+
+        jTable1.setAutoCreateRowSorter(true);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Comments"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(name)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(date)))
+                        .addGap(44, 44, 44))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addGap(30, 30, 30)
-                        .addComponent(cforum_title, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comment, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 46, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cforum_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(name)
+                    .addComponent(jLabel2)
+                    .addComponent(date))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(comment, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
-        post.setText("Post");
-        post.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                postActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(jPanel4);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(142, 142, 142))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(post)
-                .addGap(35, 35, 35))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(15, 15, 15)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(post)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -294,15 +438,21 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
         dispose(); // Close the First.java window
     }//GEN-LAST:event_homeActionPerformed
 
-    private void cforum_titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cforum_titleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cforum_titleActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Resident_Forum obj= new Resident_Forum(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void postActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postActionPerformed
-        String title = cforum_title.getText();
-        String content = cforum_content.getText();
-        
-        try {
+    private void commentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_commentKeyPressed
+        JTextField function=new JTextField();
+        comment.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){     //refresh after enter
+                String comments = comment.getText();
+                comment.setText("Comment Posted !");
+                
+                if (commentCount<1) {
+                try {
                     String url = "jdbc:mysql://localhost:3306/aps";
                     String username = "root";
                     String dbpassword = "";
@@ -321,14 +471,13 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
                         user_name = resultSet.getString("name");
                     }
 
-                    String sql2 = "INSERT INTO resident_forum (user_id, user_name, title, content) "
-                    + "VALUES (?, ?, ?, ?)"; //insert
+                    String sql2 = "INSERT INTO forum_comment (user_name, comment, forum_id) "
+                    + "VALUES (?, ?, ?)"; //insert
                     PreparedStatement statement2 = connection.prepareStatement(sql2);
 
-                    statement2.setInt(1, userId);
-                    statement2.setString(2, user_name);
-                    statement2.setString(3, title);
-                    statement2.setString(4, content);
+                    statement2.setString(1, user_name);
+                    statement2.setString(2, comments);
+                    statement2.setInt(3, forumId);
 
                     statement2.executeUpdate();
 
@@ -336,19 +485,38 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
                     statement.close();
                     statement2.close();
                     connection.close();
+                    commentCount++;
+                    Management_Forum_Content obj= new Management_Forum_Content(userId, forumId);// obj created for class Second()
+                    obj.setVisible(true); // Open the Second.java window
+                    dispose(); // Close the First.java window
+
                 } catch (Exception e2) {
                     Component err = null;
                     //System.out.println("Failed to connect to the database!");
                     JOptionPane.showMessageDialog(err, e2);
                     e2.printStackTrace();
                 }
-        
-        
-        // return user to forum page after posting an forum
-        Resident_Forum obj= new Resident_Forum(userId);// obj created for class Second()
-        obj.setVisible(true); // Open the Second.java window
-        dispose(); // Close the First.java window
-    }//GEN-LAST:event_postActionPerformed
+                }
+            }
+        });
+    }//GEN-LAST:event_commentKeyPressed
+
+    private void commentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commentActionPerformed
+
+    private void commentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentMouseEntered
+        comment.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        comment.selectAll();
+                    }
+                });
+            }
+        });
+    }//GEN-LAST:event_commentMouseEntered
 
     /**
      * @param args the command line arguments
@@ -367,13 +535,13 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Resident_Forum_Creation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Management_Forum_Content.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Resident_Forum_Creation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Management_Forum_Content.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Resident_Forum_Creation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Management_Forum_Content.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Resident_Forum_Creation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Management_Forum_Content.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -383,30 +551,37 @@ public class Resident_Forum_Creation extends javax.swing.JFrame {
         }
 
         int userId = Integer.parseInt(args[0]);
+        int forumId = Integer.parseInt(args[0]);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Forum_Creation(userId).setVisible(true);
+                new Management_Forum_Content(userId, forumId).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea cforum_content;
-    private javax.swing.JTextField cforum_title;
+    private javax.swing.JTextField comment;
+    private javax.swing.JTextPane content;
+    private javax.swing.JLabel date;
     private javax.swing.JButton home;
     private javax.swing.JButton home1;
     private javax.swing.JButton home2;
     private javax.swing.JButton home3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton post;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

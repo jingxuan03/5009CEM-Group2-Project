@@ -4,123 +4,26 @@
  */
 package Software_Development;
 
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.*;    
-import javax.swing.JOptionPane;
-import static javax.swing.UIManager.getString;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 /**
  *
  * @author User
  */
-public class Resident_Bills extends javax.swing.JFrame {
+public class Resident_Bills_Payment_Complete extends javax.swing.JFrame {
 
     private int userId;
-    Month month = Month.from(LocalDate.now()); 
+    private String month;
     
     /**
      * Creates new form Resident_Profile
      */
-    public Resident_Bills(int userId) {
+    public Resident_Bills_Payment_Complete(int userId, String month) {
         this.userId = userId;
+        this.month = month;
         initComponents();
         
-        System.out.println(month.getValue());    
-        System.out.println(month.name());  
+        String title = "  Bills";
         
-        int monthVal = month.getValue();
-        String monthName = month.name();
-        int counter = 0;
-        
-        try {
-            String url = "jdbc:mysql://localhost:3306/aps";
-            String username = "root";
-            String dbpassword = "";
-            Connection connection = null;
-            connection = DriverManager.getConnection(url, username, dbpassword);
-            
-            while (monthVal > 0) {
-            
-            String currMonth = null;
-            String sql = null;
-            
-            switch(monthVal) {
-                case 1: sql = "SELECT January FROM resident_bills WHERE user_id = ?"; currMonth = "January";
-                    break;
-                case 2: sql = "SELECT February FROM resident_bills WHERE user_id = ?"; currMonth = "February";
-                    break;
-                case 3: sql = "SELECT March FROM resident_bills WHERE user_id = ?"; currMonth = "March";
-                    break;
-                case 4: sql = "SELECT April FROM resident_bills WHERE user_id = ?"; currMonth = "April";
-                    break;
-                case 5: sql = "SELECT May FROM resident_bills WHERE user_id = ?"; currMonth = "May";
-                    break;
-                case 6: sql = "SELECT June FROM resident_bills WHERE user_id = ?"; currMonth = "June";
-                    break;
-                case 7: sql = "SELECT July FROM resident_bills WHERE user_id = ?"; currMonth = "July";
-                    break;
-                case 8: sql = "SELECT August FROM resident_bills WHERE user_id = ?"; currMonth = "August";
-                    break;
-                case 9: sql = "SELECT September FROM resident_bills WHERE user_id = ?"; currMonth = "September";
-                    break;
-                case 10: sql = "SELECT October FROM resident_bills WHERE user_id = ?"; currMonth = "October";
-                    break;
-                case 11: sql = "SELECT November FROM resident_bills WHERE user_id = ?"; currMonth = "November";
-                    break;
-                case 12: sql = "SELECT December FROM resident_bills WHERE user_id = ?"; currMonth = "December";
-                    break;
-                default:
-                    break;
-                    
-            }
-            
-            
-            PreparedStatement statement = connection.prepareStatement(sql);
-            //statement.setString(1, currMonth); //******error is here when the date is passed, if date is manually passed then it can be passed
-            statement.setInt(1, userId);
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            // Process the result
-            if (resultSet.next()) {
-                String tblMonth = currMonth;
-                int payment = resultSet.getInt(1);
-                
-                if (payment==0) {
-                
-                //add string array for storing data into jtable
-                String tbData[] = {tblMonth};
-                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
-                
-                //add string array data into jtable
-                tblModel.addRow(tbData);
-                }
-            }
-            
-            counter++;
-            monthVal--;
-            resultSet.close();
-            statement.close();
-        }
-            
-            
-            connection.close();
-
-        } catch (Exception e) {
-            //System.out.println("Failed to connect to the database!");
-            JOptionPane.showMessageDialog(this, e);
-            e.printStackTrace();
-        }
-        
-        
-        
-        
+        titles.setText(month + title);
     }
 
     /**
@@ -140,8 +43,10 @@ public class Resident_Bills extends javax.swing.JFrame {
         home2 = new javax.swing.JButton();
         home3 = new javax.swing.JButton();
         home1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        titles = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,23 +55,23 @@ public class Resident_Bills extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(193, 55));
 
-        jLabel1.setText("Bills & Fees");
+        jLabel1.setText("Payment Complete!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(143, 143, 143)
+                .addGap(115, 115, 115)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(14, 14, 14))
+                .addGap(15, 15, 15))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -237,32 +142,56 @@ public class Resident_Bills extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-            },
-            new String [] {
-                "Unpayed Bills Based on Month"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
+        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        titles.setBackground(new java.awt.Color(255, 255, 255));
+        titles.setForeground(new java.awt.Color(255, 255, 255));
+        titles.setText("May Bills");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addComponent(titles)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(titles)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("Back to Home");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-        }
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -271,17 +200,17 @@ public class Resident_Bills extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -293,7 +222,7 @@ public class Resident_Bills extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -306,13 +235,15 @@ public class Resident_Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_homeActionPerformed
 
     private void home1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1ActionPerformed
-        Resident_Profile obj= new Resident_Profile(userId);// obj created for class Second()
+       Resident_Profile obj= new Resident_Profile(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
     }//GEN-LAST:event_home1ActionPerformed
 
     private void home2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home2ActionPerformed
-        
+        Resident_Bills obj= new Resident_Bills(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home2ActionPerformed
 
     private void home3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home3ActionPerformed
@@ -321,17 +252,11 @@ public class Resident_Bills extends javax.swing.JFrame {
         dispose(); // Close the First.java window
     }//GEN-LAST:event_home3ActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int index = jTable1.getSelectedRow();
-        
-        TableModel model = jTable1.getModel();
-        
-        String tblMonth = model.getValueAt(index, 0).toString();
-        
-        Resident_Bills_Details obj= new Resident_Bills_Details(userId, tblMonth);// obj created for class Second()
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Resident_Bills obj= new Resident_Bills(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,14 +275,16 @@ public class Resident_Bills extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Resident_Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Resident_Bills_Payment_Complete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Resident_Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Resident_Bills_Payment_Complete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Resident_Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Resident_Bills_Payment_Complete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Resident_Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Resident_Bills_Payment_Complete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         if (args.length < 1) {
@@ -366,10 +293,11 @@ public class Resident_Bills extends javax.swing.JFrame {
         }
 
         int userId = Integer.parseInt(args[0]);
+        String month = (args[0]);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Bills(userId).setVisible(true);
+                new Resident_Bills_Payment_Complete(userId, month).setVisible(true);
             }
         });
     }
@@ -379,11 +307,13 @@ public class Resident_Bills extends javax.swing.JFrame {
     private javax.swing.JButton home1;
     private javax.swing.JButton home2;
     private javax.swing.JButton home3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JLabel titles;
     // End of variables declaration//GEN-END:variables
 }

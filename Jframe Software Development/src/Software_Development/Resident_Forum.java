@@ -4,18 +4,11 @@
  */
 package Software_Development;
 
-import java.awt.Color;
-import java.awt.Container;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -85,9 +78,11 @@ public class Resident_Forum extends javax.swing.JFrame {
         home2 = new javax.swing.JButton();
         home3 = new javax.swing.JButton();
         home1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        page_title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        forum_type = new javax.swing.JToggleButton();
+        forum_create = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -182,9 +177,9 @@ public class Resident_Forum extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Community");
+        page_title.setBackground(new java.awt.Color(255, 255, 255));
+        page_title.setForeground(new java.awt.Color(255, 255, 255));
+        page_title.setText("Resident");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -215,14 +210,24 @@ public class Resident_Forum extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(600);
         }
 
+        forum_type.setText("Management");
+        forum_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forum_typeActionPerformed(evt);
+            }
+        });
+
+        forum_create.setText("Create");
+        forum_create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forum_createActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(142, 142, 142))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,7 +235,15 @@ public class Resident_Forum extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(forum_type, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(page_title, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addGap(37, 37, 37)
+                        .addComponent(forum_create)
+                        .addGap(16, 16, 16))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -238,10 +251,17 @@ public class Resident_Forum extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(page_title)
+                            .addComponent(forum_type))
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(forum_create)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -289,11 +309,102 @@ public class Resident_Forum extends javax.swing.JFrame {
         String id = model.getValueAt(index, 0).toString();
         int forumId = Integer.parseInt(id);
         
-        Resident_Forum_Content obj= new Resident_Forum_Content(userId, forumId);// obj created for class Second()
+        if (forum_type.isSelected()) { 
+            Management_Forum_Content obj= new Management_Forum_Content(userId, forumId);// obj created for class Second()
+            obj.setVisible(true); // Open the Second.java window
+            dispose(); // Close the First.java window
+        }
+        else {
+            Resident_Forum_Content obj= new Resident_Forum_Content(userId, forumId);// obj created for class Second()
+            obj.setVisible(true); // Open the Second.java window
+            dispose(); // Close the First.java window
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void forum_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forum_typeActionPerformed
+        if (forum_type.isSelected()) { 
+            page_title.setText("Management");
+            forum_create.setEnabled(false);
+            try {
+                String url = "jdbc:mysql://localhost:3306/aps";
+                String username = "root";
+                String dbpassword = "";
+                Connection connection = null;
+                connection = DriverManager.getConnection(url, username, dbpassword);
+
+                String sql = "SELECT forum_id, title FROM management_forum";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                 tblModel.setRowCount(0);
+                
+                ResultSet resultSet = statement.executeQuery();
+                // Process the result
+                while (resultSet.next()) {
+                    String id = resultSet.getString("forum_id");
+                    String titles = resultSet.getString("title");
+
+                    //add string array for storing data into jtable
+                    String tbData[] = {id, titles};
+                    
+                    
+                    //add string array data into jtable
+                    tblModel.addRow(tbData);
+                }
+
+                resultSet.close();
+                statement.close();
+                connection.close();
+
+            } catch (Exception e) {
+                //System.out.println("Failed to connect to the database!");
+                JOptionPane.showMessageDialog(this, e);
+                e.printStackTrace();
+            }
+        }
+        else {
+            page_title.setText("Resident");
+            forum_create.setEnabled(true);
+            try {
+                String url = "jdbc:mysql://localhost:3306/aps";
+                String username = "root";
+                String dbpassword = "";
+                Connection connection = null;
+                connection = DriverManager.getConnection(url, username, dbpassword);
+
+                String sql = "SELECT forum_id, title FROM resident_forum";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                 tblModel.setRowCount(0);
+                 
+                ResultSet resultSet = statement.executeQuery(); //problem here
+                // Process the result
+                while (resultSet.next()) {
+                    String id = resultSet.getString("forum_id");
+                    String titles = resultSet.getString("title");
+
+                    //add string array for storing data into jtable
+                    String tbData[] = {id, titles};
+                    //add string array data into jtable
+                    tblModel.addRow(tbData);
+                }
+
+                resultSet.close();
+                statement.close();
+                connection.close();
+
+            } catch (Exception e) {
+                //System.out.println("Failed to connect to the database!");
+                JOptionPane.showMessageDialog(this, e);
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_forum_typeActionPerformed
+
+    private void forum_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forum_createActionPerformed
+        Resident_Forum_Creation obj= new Resident_Forum_Creation(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
-        
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_forum_createActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,16 +448,18 @@ public class Resident_Forum extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton forum_create;
+    private javax.swing.JToggleButton forum_type;
     private javax.swing.JButton home;
     private javax.swing.JButton home1;
     private javax.swing.JButton home2;
     private javax.swing.JButton home3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel page_title;
     // End of variables declaration//GEN-END:variables
 }

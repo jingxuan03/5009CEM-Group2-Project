@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.*;
@@ -251,10 +250,12 @@ public class Resident_Forum_Content extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        name.setForeground(new java.awt.Color(153, 153, 153));
         name.setText("name");
 
         jLabel2.setText("from");
 
+        date.setForeground(new java.awt.Color(153, 153, 153));
         date.setText("date");
 
         content.setEditable(false);
@@ -337,8 +338,9 @@ public class Resident_Forum_Content extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(name)
@@ -418,7 +420,9 @@ public class Resident_Forum_Content extends javax.swing.JFrame {
     }//GEN-LAST:event_home1ActionPerformed
 
     private void home3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home3ActionPerformed
-        // TODO add your handling code here:
+        Resident_Forum obj= new Resident_Forum(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home3ActionPerformed
 
     private void home2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home2ActionPerformed
@@ -454,7 +458,7 @@ public class Resident_Forum_Content extends javax.swing.JFrame {
                     Connection connection = null;
                     connection = DriverManager.getConnection(url, username, dbpassword);
 
-                    String sql = "SELECT user_name FROM resident_forum WHERE user_id = ?"; //insert
+                    String sql = "SELECT name FROM resident WHERE id = ?"; //insert
                     PreparedStatement statement = connection.prepareStatement(sql);
                     statement.setInt(1, userId);
 
@@ -463,7 +467,7 @@ public class Resident_Forum_Content extends javax.swing.JFrame {
                     String user_name = null;
                     // Process the result
                     if (resultSet.next()) {
-                        user_name = resultSet.getString("user_name");
+                        user_name = resultSet.getString("name");
                     }
 
                     String sql2 = "INSERT INTO forum_comment (user_name, comment, forum_id) "

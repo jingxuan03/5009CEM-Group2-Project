@@ -4,6 +4,13 @@
  */
 package Software_Development;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
@@ -11,12 +18,19 @@ package Software_Development;
 public class Resident_Bills_Details extends javax.swing.JFrame {
 
     private int userId;
+    private String month;
+    
     /**
      * Creates new form Resident_Profile
      */
-    public Resident_Bills_Details(int userId) {
+    public Resident_Bills_Details(int userId, String month) {
         this.userId = userId;
+        this.month = month;
         initComponents();
+        
+        String title = " Water and Electric Bills";
+        
+        titles.setText(month + title);
     }
 
     /**
@@ -38,7 +52,7 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
         home3 = new javax.swing.JButton();
         home1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        titles = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -49,6 +63,9 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,13 +74,18 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(193, 55));
 
-        jLabel1.setText("May Bills");
+        jLabel1.setText("Maintenance Fee & Sinking Funds");
 
         jLabel10.setBackground(new java.awt.Color(204, 204, 204));
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
         jLabel10.setText("Back");
         jLabel10.setToolTipText("");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,7 +94,7 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel10)
-                .addGap(110, 110, 110)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -156,9 +178,9 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(216, 229, 255));
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("May, 2023 Water and Electric Bills");
+        titles.setBackground(new java.awt.Color(255, 255, 255));
+        titles.setForeground(new java.awt.Color(0, 0, 0));
+        titles.setText("May, 2023 Water and Electric Bills");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -248,7 +270,7 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jLabel4)
+                .addComponent(titles)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -256,7 +278,7 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel4)
+                .addComponent(titles)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -269,20 +291,54 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
             }
         });
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setText("Select Your Preferred Payment Method:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit Card", "PayPal" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(54, 54, 54))
+                .addGap(58, 58, 58))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,9 +346,11 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -335,8 +393,74 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
     }//GEN-LAST:event_home3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+        String url = "jdbc:mysql://localhost:3306/aps";
+        String username = "root";
+        String dbpassword = "";
+        Connection connection = null;
+        connection = DriverManager.getConnection(url, username, dbpassword);
+
+        String sql = null;
+        
+        switch(month) {
+                case "January": sql = "UPDATE resident_bills SET January = '1' WHERE user_id = ?";
+                    break;
+                case "February": sql = "UPDATE resident_bills SET February = '1' WHERE user_id = ?";
+                    break;
+                case "March": sql = "UPDATE resident_bills SET March = '1' WHERE user_id = ?";
+                    break;
+                case "April": sql = "UPDATE resident_bills SET April = '1' WHERE user_id = ?";
+                    break;
+                case "May": sql = "UPDATE resident_bills SET May = '1' WHERE user_id = ?";
+                    break;
+                case "June": sql = "UPDATE resident_bills SET June = '1' WHERE user_id = ?";
+                    break;
+                case "July": sql = "UPDATE resident_bills SET July = '1' WHERE user_id = ?";
+                    break;
+                case "August": sql = "UPDATE resident_bills SET August = '1' WHERE user_id = ?";
+                    break;
+                case "September": sql = "UPDATE resident_bills SET September = '1' WHERE user_id = ?";
+                    break;
+                case "October": sql = "UPDATE resident_bills SET October = '1' WHERE user_id = ?";
+                    break;
+                case "November": sql = "UPDATE resident_bills SET November = '1' WHERE user_id = ?";
+                    break;
+                case "December": sql = "UPDATE resident_bills SET December = '1' WHERE user_id = ?";
+                    break;
+                default:
+                    break;
+                    
+            }
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        //statement.setString(1, month); //******error is here when the date is passed, if date is manually passed then it can be passed
+        statement.setInt(1, userId);
+
+        statement.executeUpdate();
+        
+        statement.close();
+        connection.close();
+        
+        } catch (Exception e) {
+            //System.out.println("Failed to connect to the database!");
+            JOptionPane.showMessageDialog(this, e);
+            e.printStackTrace();
+        }
+        
+        Resident_Bills_Payment_Complete obj= new Resident_Bills_Payment_Complete(userId, month);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+       Resident_Bills obj= new Resident_Bills(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -373,10 +497,11 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
         }
 
         int userId = Integer.parseInt(args[0]);
+        String month = (args[0]);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Bills_Details(userId).setVisible(true);
+                new Resident_Bills_Details(userId, month).setVisible(true);
             }
         });
     }
@@ -387,6 +512,7 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
     private javax.swing.JButton home2;
     private javax.swing.JButton home3;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -403,5 +529,7 @@ public class Resident_Bills_Details extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel titles;
     // End of variables declaration//GEN-END:variables
 }

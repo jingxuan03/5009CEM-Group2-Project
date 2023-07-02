@@ -14,9 +14,9 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
-import java.security.NoSuchAlgorithmException;  
-import java.security.MessageDigest; 
-//import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
+import java.security.MessageDigest;
+
 
 /**
  *
@@ -50,6 +50,9 @@ public class Manager_Login extends javax.swing.JFrame {
         loginBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         resetBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        loginSuccessMessage = new javax.swing.JLabel();
+        loginFailureMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -102,14 +105,23 @@ public class Manager_Login extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(73, 73, 73))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -127,12 +139,20 @@ public class Manager_Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loginFailureMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginSuccessMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(31, 31, 31)
                 .addComponent(jLabel4)
                 .addGap(36, 36, 36)
@@ -147,7 +167,11 @@ public class Manager_Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginBtn)
                     .addComponent(resetBtn))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(loginSuccessMessage)
+                .addGap(18, 18, 18)
+                .addComponent(loginFailureMessage)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,12 +238,12 @@ public class Manager_Login extends javax.swing.JFrame {
                 // Compare the hashed passwords
                 if (hashedPassword.toString().equals(storedPassword)) {
                     // Passwords match, proceed to the home page
-                    dispose(); // Close login page
-                    Resident_Home homePage = new Resident_Home();
-                    homePage.show();
+                    //JOptionPane.showMessageDialog(this, "Login Successfully.");
+                    loginSuccessMessage.setText("Login successfully");
                 } else {
                     // Passwords don't match
-                    JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                    loginFailureMessage.setText("Login failed");
+                    //JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
                     editManagerId.setText("");
                     editManagerPass.setText("");
                 }
@@ -245,6 +269,13 @@ public class Manager_Login extends javax.swing.JFrame {
         editManagerId.setText("");
         editManagerPass.setText("");
     }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Main_Login main = new Main_Login();
+        main.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,12 +315,15 @@ public class Manager_Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField editManagerId;
     private javax.swing.JPasswordField editManagerPass;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
+    private javax.swing.JLabel loginFailureMessage;
+    private javax.swing.JLabel loginSuccessMessage;
     private javax.swing.JButton resetBtn;
     // End of variables declaration//GEN-END:variables
 }

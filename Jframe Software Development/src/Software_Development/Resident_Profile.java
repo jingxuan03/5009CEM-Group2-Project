@@ -31,13 +31,16 @@ public class Resident_Profile extends javax.swing.JFrame {
         this.userId = userId;
         initComponents();
         //unitNo.setText(String.valueOf(userId));
-
+        dialogMessageValid.setVisible(false);
+         dialogMessageInvalid.setVisible(false);
         try {
             String url = "jdbc:mysql://localhost:3306/aps";
             String username = "root";
             String dbpassword = "";
             Connection connection = null;
             connection = DriverManager.getConnection(url, username, dbpassword);
+
+            // Retrieve the unitNo based on the id that passed to Resident_Profile
             String sql = "SELECT unitNo FROM resident WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userId);
@@ -46,6 +49,7 @@ public class Resident_Profile extends javax.swing.JFrame {
             ResultSet resultSet = statement.executeQuery();
             // Process the result
             if (resultSet.next()) {
+                // Display the unitNo
                 String unit = resultSet.getString("unitNo");
                 unitNo.setText(unit);
 
@@ -85,6 +89,8 @@ public class Resident_Profile extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        dialogMessageValid = new javax.swing.JLabel();
+        dialogMessageInvalid = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         home = new javax.swing.JButton();
         home2 = new javax.swing.JButton();
@@ -220,20 +226,31 @@ public class Resident_Profile extends javax.swing.JFrame {
 
         jLabel1.setText("Profile");
 
+        dialogMessageValid.setText("jLabel3");
+
+        dialogMessageInvalid.setText("jLabel3");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(160, 160, 160)
+                .addGap(44, 44, 44)
+                .addComponent(dialogMessageInvalid, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dialogMessageValid, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(dialogMessageValid)
+                    .addComponent(dialogMessageInvalid))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -603,7 +620,7 @@ public class Resident_Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_home2ActionPerformed
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
-        Resident_Home obj = new Resident_Home();// obj created for class Second()
+        Resident_Home obj = new Resident_Home(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
     }//GEN-LAST:event_homeActionPerformed
@@ -648,20 +665,23 @@ public class Resident_Profile extends javax.swing.JFrame {
             // Open connection
             connection = DriverManager.getConnection(url, username, dbpassword);
 
+            // Get the user input
             String name = insertName.getText();
             String email = insertEmail.getText();
+            String vehicleNo = insertVehicleNo.getText();
+            String phoneNo = insertPhoneNo.getText();
+            
+            
             // Email validation
             String emailRegex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+)\\.([A-Za-z]{2,})$";
             Pattern emailPattern = Pattern.compile(emailRegex);
             Matcher emailMatcher = emailPattern.matcher(email);
 
-            String vehicleNo = insertVehicleNo.getText();
             // Vehicle number validation
             String vehicleRegex = "^[A-Z]{1,3}[0-9]{1,4}$";
             Pattern vehiclePattern = Pattern.compile(vehicleRegex);
             Matcher vehicleMatcher = vehiclePattern.matcher(vehicleNo);
 
-            String phoneNo = insertPhoneNo.getText();
             // Phone number validation
             String phoneRegex = "^01[0-9]{8}$";
             Pattern phonePattern = Pattern.compile(phoneRegex);
@@ -670,12 +690,20 @@ public class Resident_Profile extends javax.swing.JFrame {
             String residentPassword = insertPass.getText();
             String residentConfirmPassword = insertConfirmPass.getText();
             String encryptedpassword = null;
+            
+            
+             if (name.isEmpty() || email.isEmpty() || vehicleNo.isEmpty() || phoneNo.isEmpty() || residentPassword.isEmpty() || residentConfirmPassword.isEmpty() ) {
+                JOptionPane.showMessageDialog(this, "Please filled in all the form.");
+                return; // Stop further execution
+            }
 
+            // Perform the email, vehicle number and phone validation
             if (!emailMatcher.matches() || !vehicleMatcher.matches() || !phoneMatcher.matches()) {
                 if (!emailMatcher.matches()) {
                     // Email is not in the correct format
                     insertEmail.setForeground(Color.RED);
                     insertEmail.setText("Invalid email format");
+                    dialogMessageInvalid.setText("Updated failed");
 
                     insertEmail.addFocusListener(new FocusAdapter() {
                         @Override
@@ -690,8 +718,9 @@ public class Resident_Profile extends javax.swing.JFrame {
                 if (!vehicleMatcher.matches()) {
                     // Vehicle number is not in the correct format
                     insertVehicleNo.setForeground(Color.RED);
-                    insertVehicleNo.setText("Invalid vehicle number format. Enter format: ABC1234");
-
+                    insertVehicleNo.setText("Enter format: ABC1234");
+                    dialogMessageInvalid.setText("Updated failed");
+                    
                     insertVehicleNo.addFocusListener(new FocusAdapter() {
                         @Override
                         public void focusGained(FocusEvent e) {
@@ -705,8 +734,9 @@ public class Resident_Profile extends javax.swing.JFrame {
                 if (!phoneMatcher.matches()) {
                     // Phone number is not in the correct format
                     insertPhoneNo.setForeground(Color.RED);
-                    insertPhoneNo.setText("Invalid phone number format. Enter format: 0123456789");
-
+                    insertPhoneNo.setText("Enter format: 0123456789");
+                    dialogMessageInvalid.setText("Updated failed");
+                    
                     insertPhoneNo.addFocusListener(new FocusAdapter() {
                         @Override
                         public void focusGained(FocusEvent e) {
@@ -751,17 +781,26 @@ public class Resident_Profile extends javax.swing.JFrame {
                 updateStatement.setInt(6, userId);
                 int rowsAffected = updateStatement.executeUpdate();
 
+                String updateBillTable = "UPDATE resident_bills SET user_name = ? WHERE user_id = ?";
+                PreparedStatement updateStatement2 = connection.prepareStatement(updateBillTable);
+                updateStatement2.setString(1, name);
+                updateStatement2.setInt(2, userId);
+                int rowsAffected2 = updateStatement2.executeUpdate();
+
                 if (rowsAffected > 0) {
-                    // Registration successful, proceed to the home page
+                    // Updated success and show message
                     JOptionPane.showMessageDialog(this, "Updated successfully.");
+                    dialogMessageValid.setText("Updated successfully");
                 } else {
-                    // Registration failed
+                    // Update failed and show message
                     JOptionPane.showMessageDialog(this, "Update failed. Please try again.");
+                    dialogMessageInvalid.setText("Updated failed");
 
                 }
 
                 connection.close();
             } else {
+                dialogMessageInvalid.setText("Updated failed");
                 JOptionPane.showMessageDialog(this, "Password are not matached.");
                 return;
             }
@@ -813,6 +852,8 @@ public class Resident_Profile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dialogMessageInvalid;
+    private javax.swing.JLabel dialogMessageValid;
     private javax.swing.JButton home;
     private javax.swing.JButton home1;
     private javax.swing.JButton home2;

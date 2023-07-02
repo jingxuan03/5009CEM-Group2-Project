@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Software_Development;
+
 import java.awt.Color;
 import java.security.MessageDigest;
 import java.sql.Connection;
@@ -42,6 +43,8 @@ public class Resident_Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        resetBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -88,6 +91,20 @@ public class Resident_Login extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Resident");
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        resetBtn1.setText("Reset");
+        resetBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,25 +113,34 @@ public class Resident_Login extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editUnitNo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editResidentPass, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginBtn))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(resetBtn1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(loginBtn)))
                         .addGap(42, 42, 42))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(101, 101, 101))))
+                        .addGap(101, 101, 101)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(31, 31, 31)
                 .addComponent(jLabel4)
                 .addGap(36, 36, 36)
@@ -126,7 +152,9 @@ public class Resident_Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editResidentPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loginBtn)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginBtn)
+                    .addComponent(resetBtn1))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
 
@@ -172,7 +200,13 @@ public class Resident_Login extends javax.swing.JFrame {
             String unitNo = editUnitNo.getText();
             String residentPassword = editResidentPass.getText();
 
-            // Retrieve the hashed password from the Manager table
+            // If the unitNo and residentPassword is empty, show the error message
+            if (unitNo.isEmpty() || residentPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter the Unit No and password.");
+                return; // Stop further execution
+            }
+
+            // Retrieve the unitNo and hashed password from the Manager table
             String getPasswordQuery = "SELECT unitNo, password, id FROM resident WHERE unitNo = ?";
             PreparedStatement getPasswordStatement = connection.prepareStatement(getPasswordQuery);
             getPasswordStatement.setString(1, unitNo);
@@ -181,7 +215,7 @@ public class Resident_Login extends javax.swing.JFrame {
             if (passwordResult.next()) {
                 String storedPassword = passwordResult.getString("password");
                 int userId = passwordResult.getInt("id");
-                 
+
                 // Hash the entered password
                 MessageDigest md = MessageDigest.getInstance("MD5");
                 md.update(residentPassword.getBytes());
@@ -191,23 +225,22 @@ public class Resident_Login extends javax.swing.JFrame {
                     hashedPassword.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
                 }
 
-                // Compare the hashed passwords
+                // Compare the hashed passwords with the database
                 if (hashedPassword.toString().equals(storedPassword)) {
                     // Passwords match, proceed to the home page
-                    
-                    dispose(); // Close login page
-                    Resident_Profile profile = new Resident_Profile(userId);
-                    //profile.show();
-                    profile.setVisible(true);
+                    dispose(); // Close current page
+                    Resident_Home home = new Resident_Home(userId);
+                    home.setVisible(true);
+
                 } else {
-                    // Passwords don't match
-                    JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                    // Passwords don't match show the error messgae
+                    JOptionPane.showMessageDialog(this, "Invalid Unit No or password. Please try again.");
                     editUnitNo.setText("");
                     editResidentPass.setText("");
                 }
             } else {
                 // ID not found
-                JOptionPane.showMessageDialog(this, "Invalid ID or password. Please try again.");
+                JOptionPane.showMessageDialog(this, "Invalid Unit No or password. Please try again.");
                 editUnitNo.setText("");
                 editResidentPass.setText("");
             }
@@ -219,8 +252,22 @@ public class Resident_Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e);
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Main_Login main = new Main_Login();
+        main.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void resetBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtn1ActionPerformed
+        // TODO add your handling code here:
+        //button reset code
+        editUnitNo.setText("");
+        editResidentPass.setText("");
+    }//GEN-LAST:event_resetBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,11 +307,13 @@ public class Resident_Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField editResidentPass;
     private javax.swing.JTextField editUnitNo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
+    private javax.swing.JButton resetBtn1;
     // End of variables declaration//GEN-END:variables
 }

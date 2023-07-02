@@ -433,7 +433,7 @@ public class Management_Forum_Content extends javax.swing.JFrame {
     }//GEN-LAST:event_home2ActionPerformed
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
-        Resident_Home obj= new Resident_Home();// obj created for class Second()
+        Resident_Home obj= new Resident_Home(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
     }//GEN-LAST:event_homeActionPerformed

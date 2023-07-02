@@ -1,5 +1,13 @@
 package Software_Development;
 
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -17,6 +25,9 @@ public class Resident_Search extends javax.swing.JFrame {
     public Resident_Search() {
         initComponents();
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,18 +41,17 @@ public class Resident_Search extends javax.swing.JFrame {
         UpperWhiteBar = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         Background = new javax.swing.JPanel();
-        SearchBar = new javax.swing.JPanel();
-        SearchUnitNo = new javax.swing.JLabel();
-        Displaybg = new javax.swing.JPanel();
-        OwnerNamebg = new javax.swing.JPanel();
-        OwnerName = new javax.swing.JLabel();
-        CarPlatebg = new javax.swing.JPanel();
-        CarPlate = new javax.swing.JLabel();
+        SearchBar2 = new javax.swing.JPanel();
+        SearchUnitNo2 = new javax.swing.JLabel();
+        searchbutton2 = new javax.swing.JButton();
+        unitnodisplay2 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         LowerWhiteBar = new javax.swing.JPanel();
         Resident = new javax.swing.JButton();
         Account = new javax.swing.JButton();
         Search = new javax.swing.JButton();
-        Payment = new javax.swing.JButton();
+        Home = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,95 +80,92 @@ public class Resident_Search extends javax.swing.JFrame {
 
         Background.setBackground(new java.awt.Color(153, 153, 153));
 
-        SearchUnitNo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        SearchUnitNo.setText("Search (Unit No) :");
+        SearchBar2.setBackground(new java.awt.Color(153, 153, 153));
 
-        javax.swing.GroupLayout SearchBarLayout = new javax.swing.GroupLayout(SearchBar);
-        SearchBar.setLayout(SearchBarLayout);
-        SearchBarLayout.setHorizontalGroup(
-            SearchBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SearchBarLayout.createSequentialGroup()
+        SearchUnitNo2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        SearchUnitNo2.setForeground(new java.awt.Color(255, 255, 255));
+        SearchUnitNo2.setText("(Unit No) :");
+
+        searchbutton2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        searchbutton2.setText("Search");
+        searchbutton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchbuttonActionPerformed(evt);
+            }
+        });
+
+        unitnodisplay2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        jTable3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Owner Name", "Car Plate"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable3);
+
+        javax.swing.GroupLayout SearchBar2Layout = new javax.swing.GroupLayout(SearchBar2);
+        SearchBar2.setLayout(SearchBar2Layout);
+        SearchBar2Layout.setHorizontalGroup(
+            SearchBar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SearchBar2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(SearchUnitNo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        SearchBarLayout.setVerticalGroup(
-            SearchBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SearchBarLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(SearchUnitNo)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        Displaybg.setBackground(new java.awt.Color(255, 255, 255));
-
-        OwnerName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        OwnerName.setText("Owner Name :");
-
-        javax.swing.GroupLayout OwnerNamebgLayout = new javax.swing.GroupLayout(OwnerNamebg);
-        OwnerNamebg.setLayout(OwnerNamebgLayout);
-        OwnerNamebgLayout.setHorizontalGroup(
-            OwnerNamebgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OwnerNamebgLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(OwnerName)
-                .addContainerGap(168, Short.MAX_VALUE))
-        );
-        OwnerNamebgLayout.setVerticalGroup(
-            OwnerNamebgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OwnerNamebgLayout.createSequentialGroup()
+                .addComponent(SearchUnitNo2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(unitnodisplay2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchbutton2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(SearchBar2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(OwnerName)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
-
-        CarPlate.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        CarPlate.setText("Car Plate :");
-
-        javax.swing.GroupLayout CarPlatebgLayout = new javax.swing.GroupLayout(CarPlatebg);
-        CarPlatebg.setLayout(CarPlatebgLayout);
-        CarPlatebgLayout.setHorizontalGroup(
-            CarPlatebgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CarPlatebgLayout.createSequentialGroup()
+        SearchBar2Layout.setVerticalGroup(
+            SearchBar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SearchBar2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(CarPlate)
+                .addGroup(SearchBar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(unitnodisplay2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SearchUnitNo2)
+                    .addComponent(searchbutton2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        CarPlatebgLayout.setVerticalGroup(
-            CarPlatebgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CarPlatebgLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(CarPlate)
-                .addGap(16, 16, 16))
-        );
 
-        javax.swing.GroupLayout DisplaybgLayout = new javax.swing.GroupLayout(Displaybg);
-        Displaybg.setLayout(DisplaybgLayout);
-        DisplaybgLayout.setHorizontalGroup(
-            DisplaybgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplaybgLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(DisplaybgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(CarPlatebg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(OwnerNamebg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+        javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
+        Background.setLayout(BackgroundLayout);
+        BackgroundLayout.setHorizontalGroup(
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundLayout.createSequentialGroup()
+                .addComponent(SearchBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        DisplaybgLayout.setVerticalGroup(
-            DisplaybgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplaybgLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(OwnerNamebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(CarPlatebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+        BackgroundLayout.setVerticalGroup(
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundLayout.createSequentialGroup()
+                .addComponent(SearchBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         LowerWhiteBar.setBackground(new java.awt.Color(255, 255, 255));
         LowerWhiteBar.setPreferredSize(new java.awt.Dimension(0, 57));
 
         Resident.setBackground(new java.awt.Color(235, 235, 235));
-        Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Resident.setText("Resident");
+        Resident.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        Resident.setText("Manager");
         Resident.setPreferredSize(new java.awt.Dimension(83, 45));
         Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,13 +193,13 @@ public class Resident_Search extends javax.swing.JFrame {
             }
         });
 
-        Payment.setBackground(new java.awt.Color(235, 235, 235));
-        Payment.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Payment.setText("Payment");
-        Payment.setPreferredSize(new java.awt.Dimension(83, 45));
-        Payment.addActionListener(new java.awt.event.ActionListener() {
+        Home.setBackground(new java.awt.Color(235, 235, 235));
+        Home.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Home.setText("Home");
+        Home.setPreferredSize(new java.awt.Dimension(83, 45));
+        Home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PaymentActionPerformed(evt);
+                HomeActionPerformed(evt);
             }
         });
 
@@ -202,14 +209,14 @@ public class Resident_Search extends javax.swing.JFrame {
             LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LowerWhiteBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LowerWhiteBarLayout.setVerticalGroup(
             LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,33 +226,8 @@ public class Resident_Search extends javax.swing.JFrame {
                     .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
-        Background.setLayout(BackgroundLayout);
-        BackgroundLayout.setHorizontalGroup(
-            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BackgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(SearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(BackgroundLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(Displaybg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-            .addComponent(LowerWhiteBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-        );
-        BackgroundLayout.setVerticalGroup(
-            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BackgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(Displaybg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addComponent(LowerWhiteBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,14 +235,20 @@ public class Resident_Search extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(UpperWhiteBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LowerWhiteBar, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(UpperWhiteBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LowerWhiteBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -273,17 +261,54 @@ public class Resident_Search extends javax.swing.JFrame {
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
         Resident_Account account = new Resident_Account();
         account.setVisible(true);
+        dispose();
     }//GEN-LAST:event_AccountActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         Resident_Search search = new Resident_Search();
         search.setVisible(true);
+        dispose();
     }//GEN-LAST:event_SearchActionPerformed
 
-    private void PaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentActionPerformed
-        Resident_Payment payment = new Resident_Payment();
-        payment.setVisible(true);
-    }//GEN-LAST:event_PaymentActionPerformed
+    private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
+        Manager_Home home = new Manager_Home();
+        home.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_HomeActionPerformed
+
+    private void searchbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbuttonActionPerformed
+        // Retrieve the unit number entered by the user
+        String unitNo = unitnodisplay2.getText();
+
+        // Clear the table before populating it with new data
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
+
+        // Establish the database connection
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aps", "root", "")) {
+            // Prepare the SQL query
+            String sql = "SELECT name, vehicleNum FROM resident WHERE unitNo = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, unitNo);
+
+            // Execute the query
+            ResultSet resultSet = statement.executeQuery();
+
+            // Process the query results and populate the table
+            while (resultSet.next()) {
+                String ownerName = resultSet.getString("name");
+                String carPlate = resultSet.getString("vehicleNum");
+
+                // Add a new row to the table model
+                model.addRow(new Object[] { ownerName, carPlate });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error retrieving data from the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_searchbuttonActionPerformed
+
+
 
     /**
      * @param args the command line arguments
@@ -323,18 +348,17 @@ public class Resident_Search extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Account;
     private javax.swing.JPanel Background;
-    private javax.swing.JLabel CarPlate;
-    private javax.swing.JPanel CarPlatebg;
-    private javax.swing.JPanel Displaybg;
+    private javax.swing.JButton Home;
     private javax.swing.JPanel LowerWhiteBar;
-    private javax.swing.JLabel OwnerName;
-    private javax.swing.JPanel OwnerNamebg;
-    private javax.swing.JButton Payment;
     private javax.swing.JButton Resident;
     private javax.swing.JButton Search;
-    private javax.swing.JPanel SearchBar;
-    private javax.swing.JLabel SearchUnitNo;
+    private javax.swing.JPanel SearchBar2;
+    private javax.swing.JLabel SearchUnitNo2;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel UpperWhiteBar;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JButton searchbutton2;
+    private javax.swing.JTextField unitnodisplay2;
     // End of variables declaration//GEN-END:variables
 }

@@ -300,7 +300,7 @@ public class Resident_Bills extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
-        Resident_Home obj= new Resident_Home();// obj created for class Second()
+        Resident_Home obj= new Resident_Home(userId);// obj created for class Second()
         obj.setVisible(true); // Open the Second.java window
         dispose(); // Close the First.java window
     }//GEN-LAST:event_homeActionPerformed

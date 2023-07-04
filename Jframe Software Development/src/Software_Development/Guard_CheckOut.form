@@ -247,7 +247,7 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="update" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="delete" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>

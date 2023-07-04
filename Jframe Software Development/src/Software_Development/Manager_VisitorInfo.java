@@ -20,36 +20,39 @@ import javax.swing.table.TableRowSorter;
  * @author Admin
  */
 public class Manager_VisitorInfo extends javax.swing.JFrame {
-   
+
+    private int userId; // Add userId as an instance variable  
     Connection connection = null;
     Statement stmt = null;
     ResultSet rs = null;
     DefaultTableModel model = null;
     TableRowSorter<DefaultTableModel> newTableRowSorter = null;
+
     /**
      * Creates new form Manager_VisitorInfo
      */
-    public Manager_VisitorInfo() {
+    public Manager_VisitorInfo(int userId) {
         initComponents();
+        this.userId = userId; // Set the value of userId from the constructor parameter
         connection = databaseConnection.connection();
         showVisitor();
-        
-         jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+
+        jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         jTable1.getTableHeader().setOpaque(false);
         jTable1.getTableHeader().setBackground(new Color(255, 255, 255));
         jTable1.getTableHeader().setForeground(new Color(0, 0, 0));
         jTable1.setRowHeight(25);
     }
-    
-    public void showVisitor(){
-        
-        try{
+
+    public void showVisitor() {
+
+        try {
             stmt = connection.createStatement();
             String sql = "SELECT * FROM visitor WHERE dateOut IS NOT NULL AND timeOut IS NOT NULL";
             ResultSet rs = stmt.executeQuery(sql);
-            
-            while(rs.next()){
-                
+
+            while (rs.next()) {
+
                 String id = String.valueOf(rs.getInt("id"));
                 String name = rs.getString("name");
                 String cplate = rs.getString("cplate");
@@ -63,25 +66,25 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
                 String dateOutString = dateFormat.format(sqlDateOut);
                 String timeOut = rs.getString("timeOut");
                 String gId = rs.getString("guard_id");
-                
+
                 Object[] obj = {id, name, cplate, rvisit, unitNo, dateInString, timeIn, dateOutString, timeOut, gId};
                 model = (DefaultTableModel) jTable1.getModel();
-                        
+
                 model.addRow(obj);
-                        
+
             }
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    public void search(String str){
+
+    public void search(String str) {
         model = (DefaultTableModel) jTable1.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         jTable1.setRowSorter(trs);
-        trs.setRowFilter (RowFilter.regexFilter(str));
-        
+        trs.setRowFilter(RowFilter.regexFilter(str));
+
     }
 
     /**
@@ -100,7 +103,7 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        Visitor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -134,18 +137,28 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Resident");
+        jButton1.setText("Home");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Create Acc");
+        jButton2.setText("Account");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Visitor");
+        jButton3.setText("Resident");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Payment");
+        Visitor.setText("Visitor");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -159,7 +172,7 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -170,11 +183,11 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Visitor, jButton1, jButton2, jButton3});
 
         jTable1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setForeground(new java.awt.Color(0, 0, 0));
@@ -211,16 +224,15 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(56, 56, 56)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,6 +264,9 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        Resident_Account account = new Resident_Account(userId);
+        account.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txt_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchActionPerformed
@@ -263,6 +278,20 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
         String search = txt_search.getText();
         search(search);
     }//GEN-LAST:event_txt_searchKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Manager_Home acc = new Manager_Home(userId);
+        acc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Resident_Search search = new Resident_Search(userId);
+        search.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,17 +322,20 @@ public class Manager_VisitorInfo extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
+            int userId = 123;
+
             public void run() {
-                new Manager_VisitorInfo().setVisible(true);
+                new Manager_VisitorInfo(userId).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Visitor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

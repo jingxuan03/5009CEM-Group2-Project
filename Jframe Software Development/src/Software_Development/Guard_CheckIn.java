@@ -24,6 +24,8 @@ public class Guard_CheckIn extends javax.swing.JFrame {
     Statement stmt = null;
     ResultSet rs = null;
     private int userId;
+    
+    
     /**
      * Creates new form CheckIn
      */
@@ -413,4 +415,5 @@ public class Guard_CheckIn extends javax.swing.JFrame {
     private javax.swing.JTextField timeIn;
     private javax.swing.JTextField unitNo;
     // End of variables declaration//GEN-END:variables
+
 }

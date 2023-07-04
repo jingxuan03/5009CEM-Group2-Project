@@ -22,6 +22,7 @@ public class Guard_CheckOut extends javax.swing.JFrame {
     Statement stmt = null;
     ResultSet rs = null;
     private int userId;
+    private boolean isTesting = false;
 
     /**
      * Creates new form Guard_CheckOut
@@ -400,7 +401,7 @@ public class Guard_CheckOut extends javax.swing.JFrame {
                             .addComponent(jLabel47)
                             .addComponent(timeOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(update)
                     .addComponent(delete))
                 .addGap(18, 18, 18)
@@ -504,15 +505,21 @@ public class Guard_CheckOut extends javax.swing.JFrame {
             int vId = Integer.parseInt(id.getText());
             
             String sql = "DELETE FROM visitor WHERE id ='"+vId+"' ";
-            
-            stmt.executeUpdate(sql);
-            Guard_CheckOut frame = new Guard_CheckOut(userId);
-            frame.setVisible(true);
-            dispose();
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-        }
+            if (!isTesting) {
+                int rowsAffected = stmt.executeUpdate(sql);
+                if (rowsAffected == 0) {
+                    JOptionPane.showMessageDialog(null, "ID not found!", "Delete Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Guard_CheckOut frame = new Guard_CheckOut(userId);
+                    frame.setVisible(true);
+                    dispose();
+                }
+            } else {
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }        
     }//GEN-LAST:event_deleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -635,4 +642,5 @@ public class Guard_CheckOut extends javax.swing.JFrame {
     private javax.swing.JTextField unitNo;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
+
 }

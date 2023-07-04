@@ -39,9 +39,9 @@ public class Manager_Home extends javax.swing.JFrame {
         Title = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         LowerWhiteBar = new javax.swing.JPanel();
-        Manager = new javax.swing.JButton();
+        Visitor = new javax.swing.JButton();
         Account = new javax.swing.JButton();
-        Search = new javax.swing.JButton();
+        Resident = new javax.swing.JButton();
         Home = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ViewPaymentRecord = new javax.swing.JButton();
@@ -77,13 +77,13 @@ public class Manager_Home extends javax.swing.JFrame {
         LowerWhiteBar.setBackground(new java.awt.Color(255, 255, 255));
         LowerWhiteBar.setPreferredSize(new java.awt.Dimension(0, 57));
 
-        Manager.setBackground(new java.awt.Color(235, 235, 235));
-        Manager.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        Manager.setText("Manager");
-        Manager.setPreferredSize(new java.awt.Dimension(83, 45));
-        Manager.addActionListener(new java.awt.event.ActionListener() {
+        Visitor.setBackground(new java.awt.Color(235, 235, 235));
+        Visitor.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        Visitor.setText("Visitor");
+        Visitor.setPreferredSize(new java.awt.Dimension(83, 45));
+        Visitor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ManagerActionPerformed(evt);
+                VisitorActionPerformed(evt);
             }
         });
 
@@ -97,13 +97,13 @@ public class Manager_Home extends javax.swing.JFrame {
             }
         });
 
-        Search.setBackground(new java.awt.Color(235, 235, 235));
-        Search.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Search.setText("Search");
-        Search.setPreferredSize(new java.awt.Dimension(83, 45));
-        Search.addActionListener(new java.awt.event.ActionListener() {
+        Resident.setBackground(new java.awt.Color(235, 235, 235));
+        Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Resident.setText("Resident");
+        Resident.setPreferredSize(new java.awt.Dimension(83, 45));
+        Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchActionPerformed(evt);
+                ResidentActionPerformed(evt);
             }
         });
 
@@ -127,9 +127,9 @@ public class Manager_Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(7, Short.MAX_VALUE))
         );
         LowerWhiteBarLayout.setVerticalGroup(
@@ -137,9 +137,9 @@ public class Manager_Home extends javax.swing.JFrame {
             .addGroup(LowerWhiteBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -220,9 +220,11 @@ public class Manager_Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManagerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ManagerActionPerformed
+    private void VisitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitorActionPerformed
+        Manager_VisitorInfo account = new Manager_VisitorInfo(userId);
+        account.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_VisitorActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
         Resident_Account account = new Resident_Account(userId);
@@ -230,11 +232,11 @@ public class Manager_Home extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_AccountActionPerformed
 
-    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
+    private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
         Resident_Search search = new Resident_Search(userId);
         search.setVisible(true);
         dispose();
-    }//GEN-LAST:event_SearchActionPerformed
+    }//GEN-LAST:event_ResidentActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
         Manager_Home obj = new Manager_Home(userId);
@@ -273,12 +275,12 @@ public class Manager_Home extends javax.swing.JFrame {
     private javax.swing.JButton Account;
     private javax.swing.JButton Home;
     private javax.swing.JPanel LowerWhiteBar;
-    private javax.swing.JButton Manager;
-    private javax.swing.JButton Search;
+    private javax.swing.JButton Resident;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel UpperWhiteBar;
     private javax.swing.JButton ViewForum;
     private javax.swing.JButton ViewPaymentRecord;
+    private javax.swing.JButton Visitor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

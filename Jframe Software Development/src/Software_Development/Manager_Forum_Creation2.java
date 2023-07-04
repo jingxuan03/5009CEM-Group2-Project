@@ -64,9 +64,9 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
         cforum_content = new javax.swing.JTextArea();
         post = new javax.swing.JButton();
         LowerWhiteBar = new javax.swing.JPanel();
-        Manager = new javax.swing.JButton();
+        Visitor = new javax.swing.JButton();
         Account = new javax.swing.JButton();
-        Search = new javax.swing.JButton();
+        Resident = new javax.swing.JButton();
         Home = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -155,13 +155,13 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
         LowerWhiteBar.setBackground(new java.awt.Color(255, 255, 255));
         LowerWhiteBar.setPreferredSize(new java.awt.Dimension(0, 57));
 
-        Manager.setBackground(new java.awt.Color(235, 235, 235));
-        Manager.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        Manager.setText("Manager");
-        Manager.setPreferredSize(new java.awt.Dimension(83, 45));
-        Manager.addActionListener(new java.awt.event.ActionListener() {
+        Visitor.setBackground(new java.awt.Color(235, 235, 235));
+        Visitor.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        Visitor.setText("Visitor");
+        Visitor.setPreferredSize(new java.awt.Dimension(83, 45));
+        Visitor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ManagerActionPerformed(evt);
+                VisitorActionPerformed(evt);
             }
         });
 
@@ -175,13 +175,13 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
             }
         });
 
-        Search.setBackground(new java.awt.Color(153, 153, 153));
-        Search.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Search.setText("Search");
-        Search.setPreferredSize(new java.awt.Dimension(83, 45));
-        Search.addActionListener(new java.awt.event.ActionListener() {
+        Resident.setBackground(new java.awt.Color(235, 235, 235));
+        Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Resident.setText("Resident");
+        Resident.setPreferredSize(new java.awt.Dimension(83, 45));
+        Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchActionPerformed(evt);
+                ResidentActionPerformed(evt);
             }
         });
 
@@ -205,9 +205,9 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Manager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Visitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         LowerWhiteBarLayout.setVerticalGroup(
@@ -215,9 +215,9 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
             .addGroup(LowerWhiteBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -324,9 +324,11 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
         dispose(); // Close the First.java window
     }//GEN-LAST:event_postActionPerformed
 
-    private void ManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManagerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ManagerActionPerformed
+    private void VisitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitorActionPerformed
+        Manager_VisitorInfo account = new Manager_VisitorInfo(userId);
+        account.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_VisitorActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
         Resident_Account account = new Resident_Account(userId);
@@ -334,11 +336,11 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_AccountActionPerformed
 
-    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
+    private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
         Resident_Search search = new Resident_Search(userId);
         search.setVisible(true);
         dispose();
-    }//GEN-LAST:event_SearchActionPerformed
+    }//GEN-LAST:event_ResidentActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
         Manager_Home home = new Manager_Home(userId);
@@ -370,8 +372,8 @@ public class Manager_Forum_Creation2 extends javax.swing.JFrame {
     private javax.swing.JButton Account;
     private javax.swing.JButton Home;
     private javax.swing.JPanel LowerWhiteBar;
-    private javax.swing.JButton Manager;
-    private javax.swing.JButton Search;
+    private javax.swing.JButton Resident;
+    private javax.swing.JButton Visitor;
     private javax.swing.JTextArea cforum_content;
     private javax.swing.JTextField cforum_title;
     private javax.swing.JLabel jLabel1;

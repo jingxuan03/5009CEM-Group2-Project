@@ -18,12 +18,13 @@ import javax.swing.table.DefaultTableModel;
  * @author JingXuan
  */
 public class Resident_Search extends javax.swing.JFrame {
-
+    private int userId;
     /**
      * Creates new form Resident_Search
      */
-    public Resident_Search() {
+    public Resident_Search(int userId) {
         initComponents();
+        this.userId = userId;
     }
     
     
@@ -48,9 +49,9 @@ public class Resident_Search extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         LowerWhiteBar = new javax.swing.JPanel();
-        Resident = new javax.swing.JButton();
+        Visitor = new javax.swing.JButton();
         Account = new javax.swing.JButton();
-        Search = new javax.swing.JButton();
+        Resident = new javax.swing.JButton();
         Home = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -163,13 +164,13 @@ public class Resident_Search extends javax.swing.JFrame {
         LowerWhiteBar.setBackground(new java.awt.Color(255, 255, 255));
         LowerWhiteBar.setPreferredSize(new java.awt.Dimension(0, 57));
 
-        Resident.setBackground(new java.awt.Color(235, 235, 235));
-        Resident.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        Resident.setText("Manager");
-        Resident.setPreferredSize(new java.awt.Dimension(83, 45));
-        Resident.addActionListener(new java.awt.event.ActionListener() {
+        Visitor.setBackground(new java.awt.Color(235, 235, 235));
+        Visitor.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        Visitor.setText("Visitor");
+        Visitor.setPreferredSize(new java.awt.Dimension(83, 45));
+        Visitor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResidentActionPerformed(evt);
+                VisitorActionPerformed(evt);
             }
         });
 
@@ -183,13 +184,13 @@ public class Resident_Search extends javax.swing.JFrame {
             }
         });
 
-        Search.setBackground(new java.awt.Color(153, 153, 153));
-        Search.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Search.setText("Search");
-        Search.setPreferredSize(new java.awt.Dimension(83, 45));
-        Search.addActionListener(new java.awt.event.ActionListener() {
+        Resident.setBackground(new java.awt.Color(153, 153, 153));
+        Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Resident.setText("Resident");
+        Resident.setPreferredSize(new java.awt.Dimension(83, 45));
+        Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchActionPerformed(evt);
+                ResidentActionPerformed(evt);
             }
         });
 
@@ -213,9 +214,9 @@ public class Resident_Search extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LowerWhiteBarLayout.setVerticalGroup(
@@ -223,9 +224,9 @@ public class Resident_Search extends javax.swing.JFrame {
             .addGroup(LowerWhiteBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -254,24 +255,26 @@ public class Resident_Search extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ResidentActionPerformed
+    private void VisitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitorActionPerformed
+        Manager_VisitorInfo account = new Manager_VisitorInfo(userId);
+        account.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_VisitorActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
-        Resident_Account account = new Resident_Account();
+        Resident_Account account = new Resident_Account(userId);
         account.setVisible(true);
         dispose();
     }//GEN-LAST:event_AccountActionPerformed
 
-    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-        Resident_Search search = new Resident_Search();
+    private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
+        Resident_Search search = new Resident_Search(userId);
         search.setVisible(true);
         dispose();
-    }//GEN-LAST:event_SearchActionPerformed
+    }//GEN-LAST:event_ResidentActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
-        Manager_Home home = new Manager_Home();
+        Manager_Home home = new Manager_Home(userId);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_HomeActionPerformed
@@ -336,11 +339,12 @@ public class Resident_Search extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Resident_Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+         int userId = 123;
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Search().setVisible(true);
+                new Resident_Search(userId).setVisible(true);
             }
         });
     }
@@ -351,11 +355,11 @@ public class Resident_Search extends javax.swing.JFrame {
     private javax.swing.JButton Home;
     private javax.swing.JPanel LowerWhiteBar;
     private javax.swing.JButton Resident;
-    private javax.swing.JButton Search;
     private javax.swing.JPanel SearchBar2;
     private javax.swing.JLabel SearchUnitNo2;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel UpperWhiteBar;
+    private javax.swing.JButton Visitor;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable3;
     private javax.swing.JButton searchbutton2;

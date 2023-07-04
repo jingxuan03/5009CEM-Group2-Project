@@ -1,21 +1,29 @@
 package Software_Development;
 
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author JingXuan
  */
 public class Resident_Account extends javax.swing.JFrame {
 
+    private int userId;
     /**
      * Creates new form Resident_Account
      */
-    public Resident_Account() {
+    public Resident_Account(int userId) {
         initComponents();
+        this.userId = userId;
     }
 
     /**
@@ -31,25 +39,21 @@ public class Resident_Account extends javax.swing.JFrame {
         Title = new javax.swing.JLabel();
         Background = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        First5 = new javax.swing.JPanel();
-        UnitNo5 = new javax.swing.JLabel();
-        Second = new javax.swing.JPanel();
-        ResidentName = new javax.swing.JLabel();
-        Third = new javax.swing.JPanel();
-        VehicleNumber = new javax.swing.JLabel();
-        Fourth = new javax.swing.JPanel();
-        Email = new javax.swing.JLabel();
-        Fifth = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         Register = new javax.swing.JButton();
+        Second1 = new javax.swing.JPanel();
+        ResidentName1 = new javax.swing.JLabel();
+        insertUnitNo = new javax.swing.JTextField();
+        Second2 = new javax.swing.JPanel();
+        ResidentName2 = new javax.swing.JLabel();
+        insertPass = new javax.swing.JPasswordField();
+        GuardAccount = new javax.swing.JButton();
         Namebg = new javax.swing.JPanel();
         Name = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        LowerWhiteBar = new javax.swing.JPanel();
-        Resident = new javax.swing.JButton();
+        Home = new javax.swing.JButton();
         Account = new javax.swing.JButton();
-        Search = new javax.swing.JButton();
-        Payment = new javax.swing.JButton();
+        Resident = new javax.swing.JButton();
+        Visitor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,202 +84,145 @@ public class Resident_Account extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        First5.setPreferredSize(new java.awt.Dimension(299, 30));
-
-        UnitNo5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        UnitNo5.setText("Unit No :");
-
-        javax.swing.GroupLayout First5Layout = new javax.swing.GroupLayout(First5);
-        First5.setLayout(First5Layout);
-        First5Layout.setHorizontalGroup(
-            First5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(First5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(UnitNo5)
-                .addContainerGap(247, Short.MAX_VALUE))
-        );
-        First5Layout.setVerticalGroup(
-            First5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(First5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(UnitNo5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Second.setPreferredSize(new java.awt.Dimension(299, 30));
-
-        ResidentName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        ResidentName.setText("Resident Name :");
-
-        javax.swing.GroupLayout SecondLayout = new javax.swing.GroupLayout(Second);
-        Second.setLayout(SecondLayout);
-        SecondLayout.setHorizontalGroup(
-            SecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SecondLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ResidentName)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        SecondLayout.setVerticalGroup(
-            SecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SecondLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ResidentName)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Third.setPreferredSize(new java.awt.Dimension(299, 30));
-
-        VehicleNumber.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        VehicleNumber.setText("Vehicle Number :");
-
-        javax.swing.GroupLayout ThirdLayout = new javax.swing.GroupLayout(Third);
-        Third.setLayout(ThirdLayout);
-        ThirdLayout.setHorizontalGroup(
-            ThirdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ThirdLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(VehicleNumber)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ThirdLayout.setVerticalGroup(
-            ThirdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ThirdLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(VehicleNumber)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Fourth.setPreferredSize(new java.awt.Dimension(299, 30));
-
-        Email.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        Email.setText("E-mail :");
-
-        javax.swing.GroupLayout FourthLayout = new javax.swing.GroupLayout(Fourth);
-        Fourth.setLayout(FourthLayout);
-        FourthLayout.setHorizontalGroup(
-            FourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FourthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Email)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        FourthLayout.setVerticalGroup(
-            FourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FourthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Email)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Fifth.setPreferredSize(new java.awt.Dimension(299, 30));
-
-        jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel6.setText("Phone Number :");
-
-        javax.swing.GroupLayout FifthLayout = new javax.swing.GroupLayout(Fifth);
-        Fifth.setLayout(FifthLayout);
-        FifthLayout.setHorizontalGroup(
-            FifthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FifthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        FifthLayout.setVerticalGroup(
-            FifthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FifthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         Register.setBackground(new java.awt.Color(235, 235, 235));
         Register.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         Register.setText("Register");
+        Register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterActionPerformed(evt);
+            }
+        });
+
+        Second1.setPreferredSize(new java.awt.Dimension(299, 30));
+
+        ResidentName1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ResidentName1.setText("Unit No:");
+
+        javax.swing.GroupLayout Second1Layout = new javax.swing.GroupLayout(Second1);
+        Second1.setLayout(Second1Layout);
+        Second1Layout.setHorizontalGroup(
+            Second1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Second1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ResidentName1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(insertUnitNo, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        Second1Layout.setVerticalGroup(
+            Second1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Second1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ResidentName1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(insertUnitNo)
+        );
+
+        Second2.setPreferredSize(new java.awt.Dimension(299, 30));
+
+        ResidentName2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ResidentName2.setText("Password:");
+
+        insertPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertPassActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Second2Layout = new javax.swing.GroupLayout(Second2);
+        Second2.setLayout(Second2Layout);
+        Second2Layout.setHorizontalGroup(
+            Second2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Second2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ResidentName2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(insertPass, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        Second2Layout.setVerticalGroup(
+            Second2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Second2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ResidentName2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(insertPass)
+        );
+
+        GuardAccount.setBackground(new java.awt.Color(235, 235, 235));
+        GuardAccount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        GuardAccount.setText("Guard Account");
+        GuardAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardAccountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Second, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                            .addComponent(Fourth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                            .addComponent(Fifth, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                            .addComponent(Third, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(Register)
-                        .addGap(0, 117, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Second2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                    .addComponent(Second1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addGap(139, 139, 139)
+                            .addComponent(Register))
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addGap(110, 110, 110)
+                            .addComponent(GuardAccount))))
                 .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(First5, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(Second, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Third, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Fourth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Fifth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addComponent(Second1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(Second2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(Register)
-                .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(First5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(235, Short.MAX_VALUE)))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(GuardAccount)
+                .addGap(39, 39, 39))
         );
 
         Name.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         Name.setText("Resident");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\JingXuan\\Documents\\NetBeansProjects\\JFrameSoftwareDevelopment(JX)\\src\\Software_Development\\img\\apm.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Software_Development/img/rsz_favpng_icon-person.png"))); // NOI18N
 
         javax.swing.GroupLayout NamebgLayout = new javax.swing.GroupLayout(Namebg);
         Namebg.setLayout(NamebgLayout);
         NamebgLayout.setHorizontalGroup(
             NamebgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NamebgLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(Name)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NamebgLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NamebgLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Name)
+                .addGap(24, 24, 24))
         );
         NamebgLayout.setVerticalGroup(
             NamebgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NamebgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Name)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        LowerWhiteBar.setBackground(new java.awt.Color(255, 255, 255));
-        LowerWhiteBar.setPreferredSize(new java.awt.Dimension(0, 57));
-
-        Resident.setBackground(new java.awt.Color(235, 235, 235));
-        Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Resident.setText("Resident");
-        Resident.setPreferredSize(new java.awt.Dimension(83, 45));
-        Resident.addActionListener(new java.awt.event.ActionListener() {
+        Home.setBackground(new java.awt.Color(235, 235, 235));
+        Home.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Home.setText("Resident");
+        Home.setPreferredSize(new java.awt.Dimension(83, 45));
+        Home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResidentActionPerformed(evt);
+                HomeActionPerformed(evt);
             }
         });
 
@@ -289,115 +236,217 @@ public class Resident_Account extends javax.swing.JFrame {
             }
         });
 
-        Search.setBackground(new java.awt.Color(235, 235, 235));
-        Search.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Search.setText("Search");
-        Search.setPreferredSize(new java.awt.Dimension(83, 45));
-        Search.addActionListener(new java.awt.event.ActionListener() {
+        Resident.setBackground(new java.awt.Color(235, 235, 235));
+        Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Resident.setText("Resident");
+        Resident.setPreferredSize(new java.awt.Dimension(83, 45));
+        Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchActionPerformed(evt);
+                ResidentActionPerformed(evt);
             }
         });
 
-        Payment.setBackground(new java.awt.Color(235, 235, 235));
-        Payment.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Payment.setText("Payment");
-        Payment.setPreferredSize(new java.awt.Dimension(83, 45));
-        Payment.addActionListener(new java.awt.event.ActionListener() {
+        Visitor.setBackground(new java.awt.Color(235, 235, 235));
+        Visitor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Visitor.setText("Visitor");
+        Visitor.setPreferredSize(new java.awt.Dimension(83, 45));
+        Visitor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PaymentActionPerformed(evt);
+                VisitorActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout LowerWhiteBarLayout = new javax.swing.GroupLayout(LowerWhiteBar);
-        LowerWhiteBar.setLayout(LowerWhiteBarLayout);
-        LowerWhiteBarLayout.setHorizontalGroup(
-            LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LowerWhiteBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        LowerWhiteBarLayout.setVerticalGroup(
-            LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LowerWhiteBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(LowerWhiteBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
         Background.setLayout(BackgroundLayout);
         BackgroundLayout.setHorizontalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(BackgroundLayout.createSequentialGroup()
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BackgroundLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(129, 129, 129)
+                        .addComponent(Namebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BackgroundLayout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(Namebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(LowerWhiteBar, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
         );
         BackgroundLayout.setVerticalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(Namebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(LowerWhiteBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Visitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UpperWhiteBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(UpperWhiteBar, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(UpperWhiteBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, 488, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
+    private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ResidentActionPerformed
+    }//GEN-LAST:event_HomeActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
-        Resident_Account account = new Resident_Account();
+        dispose();
+        Resident_Account account = new Resident_Account(userId);
         account.setVisible(true);
     }//GEN-LAST:event_AccountActionPerformed
 
-    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-        Resident_Search search = new Resident_Search();
+    private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
+        Resident_Search search = new Resident_Search(userId);
         search.setVisible(true);
-    }//GEN-LAST:event_SearchActionPerformed
+        dispose();
+    }//GEN-LAST:event_ResidentActionPerformed
 
-    private void PaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentActionPerformed
-        Resident_Payment payment = new Resident_Payment();
-        payment.setVisible(true);
-    }//GEN-LAST:event_PaymentActionPerformed
+    private void VisitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitorActionPerformed
+        Manager_VisitorInfo account = new Manager_VisitorInfo(userId);
+        account.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_VisitorActionPerformed
+
+    private void GuardAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardAccountActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Guard_Account account = new Guard_Account(userId);
+        account.setVisible(true);
+    }//GEN-LAST:event_GuardAccountActionPerformed
+
+    private void insertPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_insertPassActionPerformed
+
+    private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
+        try {
+            String url = "jdbc:mysql://localhost:3306/aps";
+            String username = "root";
+            String dbpassword = "";
+            Connection connection = null;
+
+            // Open connection
+            connection = DriverManager.getConnection(url, username, dbpassword);
+
+            // Get the unitNo and residentPassword based on user input
+            String unitNo = insertUnitNo.getText();
+            String residentPassword = insertPass.getText();
+            String encryptedpassword = null;
+
+            /* MessageDigest instance for MD5. */
+            MessageDigest m = MessageDigest.getInstance("MD5");
+
+            /* Add plain-text password bytes to digest using MD5 update() method. */
+            m.update(residentPassword.getBytes());
+
+            /* Convert the hash value into bytes */
+            byte[] bytes = m.digest();
+
+            /* The bytes array has bytes in decimal form. Converting it into hexadecimal format. */
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            /* Complete hashed password in hexadecimal format */
+            encryptedpassword = s.toString();
+
+            // Check if the ID already exists in the Manager table
+            String checkExistingIdQuery = "SELECT * FROM resident WHERE unitNo = ?";
+            PreparedStatement checkExistingIdStatement = connection.prepareStatement(checkExistingIdQuery);
+            checkExistingIdStatement.setString(1, unitNo);
+            ResultSet existingIdResult = checkExistingIdStatement.executeQuery();
+
+            if (existingIdResult.next()) {
+                // If the ID already exists, show an error message
+                JOptionPane.showMessageDialog(this, "Unit No already exists. Please choose a different ID.");
+                insertUnitNo.setText("");
+                insertPass.setText("");
+            } else {
+                // If the ID doesn't exist, insert the new record             
+                String insertQuery = "INSERT INTO resident ( password, unitNo) VALUES ( ?, ?)";
+
+                PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+                insertStatement.setString(1, encryptedpassword);
+                insertStatement.setString(2, unitNo);
+                int rowsAffected = insertStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    // Show registration completed message
+                    JOptionPane.showMessageDialog(this, "Registration completed");
+                    insertUnitNo.setText("");
+                    insertPass.setText("");
+
+                    // Retrieve the id from the resident table based on the unitNo
+                    // In order to get the id baesed on the unitNo that registered
+                    String selectUserIdQuery = "SELECT id FROM resident WHERE unitNo = ?";
+                    PreparedStatement selectUserIdStatement = connection.prepareStatement(selectUserIdQuery);
+                    selectUserIdStatement.setString(1, unitNo);
+                    ResultSet userIdResult = selectUserIdStatement.executeQuery();
+
+                    String userId = null;
+                    if (userIdResult.next()) {
+                        userId = userIdResult.getString("id");
+                    }
+
+                    // Insert user_id and null name into resident_bills table
+                    // user_name will be updated at the Resident_Profile page when user sign in
+                    String insertBillsQuery = "INSERT INTO resident_bills(user_id, user_name) VALUES (?,?)";
+                    PreparedStatement insertBillsStatement = connection.prepareStatement(insertBillsQuery);
+                    insertBillsStatement.setString(1, userId); // Replace userId with the appropriate value
+                    insertBillsStatement.setString(2, "null"); // Replace userId with the appropriate value
+                    int billsRowsAffected = insertBillsStatement.executeUpdate();
+
+                    //Let programmer know the insert status
+//                    if (billsRowsAffected > 0) {
+//                        // Second insert query successful
+//                        JOptionPane.showMessageDialog(this, "Resident bills inserted successfully.");
+//                    } else {
+//                        // Second insert query failed
+//                        JOptionPane.showMessageDialog(this, "Failed to insert resident bills.");
+//                    }
+
+                } else {
+                    // Registration failed
+                    JOptionPane.showMessageDialog(this, "Registration failed. Please try again.");
+                    insertUnitNo.setText("");
+                    insertPass.setText("");
+                }
+            }
+
+            connection.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_RegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -425,11 +474,12 @@ public class Resident_Account extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Resident_Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        int userId = 123;
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Resident_Account().setVisible(true);
+                new Resident_Account(userId).setVisible(true);
             }
         });
     }
@@ -437,26 +487,22 @@ public class Resident_Account extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Account;
     private javax.swing.JPanel Background;
-    private javax.swing.JLabel Email;
-    private javax.swing.JPanel Fifth;
-    private javax.swing.JPanel First5;
-    private javax.swing.JPanel Fourth;
-    private javax.swing.JPanel LowerWhiteBar;
+    private javax.swing.JButton GuardAccount;
+    private javax.swing.JButton Home;
     private javax.swing.JLabel Name;
     private javax.swing.JPanel Namebg;
-    private javax.swing.JButton Payment;
     private javax.swing.JButton Register;
     private javax.swing.JButton Resident;
-    private javax.swing.JLabel ResidentName;
-    private javax.swing.JButton Search;
-    private javax.swing.JPanel Second;
-    private javax.swing.JPanel Third;
+    private javax.swing.JLabel ResidentName1;
+    private javax.swing.JLabel ResidentName2;
+    private javax.swing.JPanel Second1;
+    private javax.swing.JPanel Second2;
     private javax.swing.JLabel Title;
-    private javax.swing.JLabel UnitNo5;
     private javax.swing.JPanel UpperWhiteBar;
-    private javax.swing.JLabel VehicleNumber;
+    private javax.swing.JButton Visitor;
+    private javax.swing.JPasswordField insertPass;
+    private javax.swing.JTextField insertUnitNo;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }

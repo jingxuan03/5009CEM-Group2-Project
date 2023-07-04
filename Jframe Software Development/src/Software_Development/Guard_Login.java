@@ -208,14 +208,14 @@ public class Guard_Login extends javax.swing.JFrame {
             String guardPassword = editGuardPass.getText();
 
             // Retrieve the hashed password from the Manager table
-            String getPasswordQuery = "SELECT password FROM guard WHERE id = ?";
+            String getPasswordQuery = "SELECT password, id FROM guard WHERE id = ?";
             PreparedStatement getPasswordStatement = connection.prepareStatement(getPasswordQuery);
             getPasswordStatement.setString(1, id);
             ResultSet passwordResult = getPasswordStatement.executeQuery();
 
             if (passwordResult.next()) {
                 String storedPassword = passwordResult.getString("password");
-
+                int userId = passwordResult.getInt("id");
                 // Hash the entered password
                 MessageDigest md = MessageDigest.getInstance("MD5");
                 md.update(guardPassword.getBytes());
@@ -228,10 +228,10 @@ public class Guard_Login extends javax.swing.JFrame {
                 // Compare the hashed passwords
                 if (hashedPassword.toString().equals(storedPassword)) {
                     // Passwords match, proceed to the home page
-//                    dispose(); // Close login page
-//                    Resident_Home homePage = new Resident_Home();
-//                    homePage.show();
-                    JOptionPane.showMessageDialog(this, "Login successfully.");
+                    dispose(); // Close login page
+                    Guard_CheckIn checkin = new Guard_CheckIn(userId);
+                    checkin.show();
+                    
 
                 } else {
                     // Passwords don't match

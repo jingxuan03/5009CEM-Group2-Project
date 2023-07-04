@@ -199,7 +199,7 @@ public class Resident_Payment extends javax.swing.JFrame {
         LowerWhiteBar1.setPreferredSize(new java.awt.Dimension(0, 57));
 
         Resident1.setBackground(new java.awt.Color(235, 235, 235));
-        Resident1.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        Resident1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         Resident1.setText("Visitor");
         Resident1.setPreferredSize(new java.awt.Dimension(83, 45));
         Resident1.addActionListener(new java.awt.event.ActionListener() {
@@ -407,13 +407,14 @@ public class Resident_Payment extends javax.swing.JFrame {
                 String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
                 for (String month : months) {
                     int billStatus = resultSet.getInt(month);
-
+                    
+                    // check if the current month has been reached
+                    if (Month.valueOf(month.toUpperCase()) == currentMonth) {
+                        //messageBuilder.append(month);
+                        break;
+                    }
                     if (billStatus == 0) {
-                        // Check if the current month has been reached
-                        if (Month.valueOf(month.toUpperCase()) == currentMonth) {
-                            messageBuilder.append(month);
-                            break;
-                        }
+                        
                         messageBuilder.append(month).append(", ");
                         hasUnpaidBills = true;
                     }
@@ -431,7 +432,7 @@ public class Resident_Payment extends javax.swing.JFrame {
                 saveReminder(user_id, message);
 
                 // Display a success message
-                JOptionPane.showMessageDialog(this, "Reminder saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Reminder sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // Display a message indicating no unpaid bills
                 JOptionPane.showMessageDialog(this, "No unpaid bills found.", "No Unpaid Bills", JOptionPane.INFORMATION_MESSAGE);

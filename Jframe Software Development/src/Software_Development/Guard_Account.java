@@ -3,23 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Software_Development;
+
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author lawka
  */
 public class Guard_Account extends javax.swing.JFrame {
 
+    private int userId;
+
     /**
      * Creates new form Guard_Account
      */
-    public Guard_Account() {
+    public Guard_Account(int userId) {
         initComponents();
+        this.userId = userId;
     }
 
     /**
@@ -42,7 +47,7 @@ public class Guard_Account extends javax.swing.JFrame {
         Second2 = new javax.swing.JPanel();
         ResidentName2 = new javax.swing.JLabel();
         insertPass = new javax.swing.JPasswordField();
-        ResidentAccount = new javax.swing.JButton();
+        guardRegister = new javax.swing.JButton();
         Namebg = new javax.swing.JPanel();
         Name = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -103,7 +108,7 @@ public class Guard_Account extends javax.swing.JFrame {
                 .addComponent(ResidentName1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(insertId, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         Second1Layout.setVerticalGroup(
             Second1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,12 +150,12 @@ public class Guard_Account extends javax.swing.JFrame {
             .addComponent(insertPass)
         );
 
-        ResidentAccount.setBackground(new java.awt.Color(235, 235, 235));
-        ResidentAccount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        ResidentAccount.setText("Resident Account");
-        ResidentAccount.addActionListener(new java.awt.event.ActionListener() {
+        guardRegister.setBackground(new java.awt.Color(235, 235, 235));
+        guardRegister.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        guardRegister.setText("Resident Register");
+        guardRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResidentAccountActionPerformed(evt);
+                guardRegisterActionPerformed(evt);
             }
         });
 
@@ -158,16 +163,17 @@ public class Guard_Account extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(29, 140, Short.MAX_VALUE)
-                .addComponent(Register)
-                .addGap(138, 138, 138))
             .addComponent(Second1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
             .addComponent(Second2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(ResidentAccount)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(Register)
+                        .addGap(138, 138, 138))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(guardRegister)
+                        .addGap(104, 104, 104))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,9 +184,9 @@ public class Guard_Account extends javax.swing.JFrame {
                 .addComponent(Second2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(Register)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(ResidentAccount)
-                .addGap(37, 37, 37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(guardRegister)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         Name.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -212,7 +218,7 @@ public class Guard_Account extends javax.swing.JFrame {
 
         Resident.setBackground(new java.awt.Color(235, 235, 235));
         Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Resident.setText("Resident");
+        Resident.setText("Home");
         Resident.setPreferredSize(new java.awt.Dimension(83, 45));
         Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,7 +238,7 @@ public class Guard_Account extends javax.swing.JFrame {
 
         Search.setBackground(new java.awt.Color(235, 235, 235));
         Search.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Search.setText("Search");
+        Search.setText("Resident");
         Search.setPreferredSize(new java.awt.Dimension(83, 45));
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +248,7 @@ public class Guard_Account extends javax.swing.JFrame {
 
         Payment.setBackground(new java.awt.Color(235, 235, 235));
         Payment.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Payment.setText("Payment");
+        Payment.setText("Visitor");
         Payment.setPreferredSize(new java.awt.Dimension(83, 45));
         Payment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,7 +283,7 @@ public class Guard_Account extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(Namebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,7 +361,7 @@ public class Guard_Account extends javax.swing.JFrame {
             } else {
                 // If the ID doesn't exist, insert the new record             
                 String insertQuery = "INSERT INTO guard ( password, id) VALUES ( ?, ?)";
-                PreparedStatement insertStatement = connection.prepareStatement(insertQuery);            
+                PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
                 insertStatement.setString(1, encryptedpassword);
                 insertStatement.setString(2, id);
                 int rowsAffected = insertStatement.executeUpdate();
@@ -384,35 +390,37 @@ public class Guard_Account extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_insertPassActionPerformed
 
-    private void ResidentAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentAccountActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        Resident_Account account = new Resident_Account();
-        account.setVisible(true);
-    }//GEN-LAST:event_ResidentAccountActionPerformed
-
     private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
         // TODO add your handling code here:
-//        dispose();
-//        Resident_Account account = new Resident_Account();
-//        account.setVisible(true);
+        dispose();
+        Manager_Home account = new Manager_Home(userId);
+        account.setVisible(true);
     }//GEN-LAST:event_ResidentActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
-        dispose();
-        Resident_Account account = new Resident_Account();
-        account.setVisible(true);
+//        dispose();
+//        Resident_Account account = new Resident_Account();
+//        account.setVisible(true);
     }//GEN-LAST:event_AccountActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-        //        Resident_Search search = new Resident_Search();
-        //        search.setVisible(true);
+        dispose();
+        Resident_Search search = new Resident_Search(userId);
+        search.setVisible(true);
     }//GEN-LAST:event_SearchActionPerformed
 
     private void PaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentActionPerformed
-        //        Resident_Payment payment = new Resident_Payment();
-        //        payment.setVisible(true);
+        Manager_VisitorInfo account = new Manager_VisitorInfo(userId);
+        account.setVisible(true);
+        dispose();
     }//GEN-LAST:event_PaymentActionPerformed
+
+    private void guardRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardRegisterActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Resident_Account account = new Resident_Account(userId);
+        account.setVisible(true);
+    }//GEN-LAST:event_guardRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,8 +451,11 @@ public class Guard_Account extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
+            int userId = 123;
+
             public void run() {
-                new Guard_Account().setVisible(true);
+                new Guard_Account(userId).setVisible(true);
             }
         });
     }
@@ -457,7 +468,6 @@ public class Guard_Account extends javax.swing.JFrame {
     private javax.swing.JButton Payment;
     private javax.swing.JButton Register;
     private javax.swing.JButton Resident;
-    private javax.swing.JButton ResidentAccount;
     private javax.swing.JLabel ResidentName1;
     private javax.swing.JLabel ResidentName2;
     private javax.swing.JButton Search;
@@ -465,6 +475,7 @@ public class Guard_Account extends javax.swing.JFrame {
     private javax.swing.JPanel Second2;
     private javax.swing.JLabel Title1;
     private javax.swing.JPanel UpperWhiteBar;
+    private javax.swing.JButton guardRegister;
     private javax.swing.JTextField insertId;
     private javax.swing.JPasswordField insertPass;
     private javax.swing.JLabel jLabel2;

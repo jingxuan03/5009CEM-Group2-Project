@@ -17,11 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class Resident_Account extends javax.swing.JFrame {
 
+    private int userId;
+
     /**
      * Creates new form Resident_Account
      */
-    public Resident_Account() {
+    public Resident_Account(int userId) {
         initComponents();
+        this.userId = userId;
     }
 
     /**
@@ -44,7 +47,7 @@ public class Resident_Account extends javax.swing.JFrame {
         Second2 = new javax.swing.JPanel();
         ResidentName2 = new javax.swing.JLabel();
         insertPass = new javax.swing.JPasswordField();
-        GuardAccount = new javax.swing.JButton();
+        guardRegister = new javax.swing.JButton();
         Namebg = new javax.swing.JPanel();
         Name = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -147,12 +150,12 @@ public class Resident_Account extends javax.swing.JFrame {
             .addComponent(insertPass)
         );
 
-        GuardAccount.setBackground(new java.awt.Color(235, 235, 235));
-        GuardAccount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        GuardAccount.setText("Guard Account");
-        GuardAccount.addActionListener(new java.awt.event.ActionListener() {
+        guardRegister.setBackground(new java.awt.Color(235, 235, 235));
+        guardRegister.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        guardRegister.setText("Guard Register");
+        guardRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardAccountActionPerformed(evt);
+                guardRegisterActionPerformed(evt);
             }
         });
 
@@ -160,19 +163,19 @@ public class Resident_Account extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Second2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                    .addComponent(Second1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Second2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                    .addComponent(Second1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(139, 139, 139)
+                                .addGap(142, 142, 142)
                                 .addComponent(Register))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(GuardAccount)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(117, 117, 117)
+                                .addComponent(guardRegister)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -182,11 +185,11 @@ public class Resident_Account extends javax.swing.JFrame {
                 .addComponent(Second1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(Second2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(33, 33, 33)
                 .addComponent(Register)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(GuardAccount)
-                .addGap(39, 39, 39))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(guardRegister)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         Name.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -218,7 +221,7 @@ public class Resident_Account extends javax.swing.JFrame {
 
         Resident.setBackground(new java.awt.Color(235, 235, 235));
         Resident.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Resident.setText("Resident");
+        Resident.setText("Home");
         Resident.setPreferredSize(new java.awt.Dimension(83, 45));
         Resident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +241,7 @@ public class Resident_Account extends javax.swing.JFrame {
 
         Search.setBackground(new java.awt.Color(235, 235, 235));
         Search.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Search.setText("Search");
+        Search.setText("Resident");
         Search.setPreferredSize(new java.awt.Dimension(83, 45));
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +251,7 @@ public class Resident_Account extends javax.swing.JFrame {
 
         Payment.setBackground(new java.awt.Color(235, 235, 235));
         Payment.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        Payment.setText("Payment");
+        Payment.setText("Visitor");
         Payment.setPreferredSize(new java.awt.Dimension(83, 45));
         Payment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,7 +286,7 @@ public class Resident_Account extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(Namebg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Resident, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,7 +300,7 @@ public class Resident_Account extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UpperWhiteBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(UpperWhiteBar, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
             .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -314,30 +317,28 @@ public class Resident_Account extends javax.swing.JFrame {
 
     private void ResidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResidentActionPerformed
         // TODO add your handling code here:
+        Manager_Home acc = new Manager_Home(userId);
+        acc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ResidentActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
-        dispose();
-        Resident_Account account = new Resident_Account();
-        account.setVisible(true);
+//        dispose();
+//        Resident_Account account = new Resident_Account();
+//        account.setVisible(true);
     }//GEN-LAST:event_AccountActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-//        Resident_Search search = new Resident_Search();
-//        search.setVisible(true);
+        Resident_Search search = new Resident_Search(userId);
+        search.setVisible(true);
+        dispose();
     }//GEN-LAST:event_SearchActionPerformed
 
     private void PaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentActionPerformed
-//        Resident_Payment payment = new Resident_Payment();
-//        payment.setVisible(true);
-    }//GEN-LAST:event_PaymentActionPerformed
-
-    private void GuardAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardAccountActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        Guard_Account account = new Guard_Account();
+        Manager_VisitorInfo account = new Manager_VisitorInfo(userId);
         account.setVisible(true);
-    }//GEN-LAST:event_GuardAccountActionPerformed
+        dispose();
+    }//GEN-LAST:event_PaymentActionPerformed
 
     private void insertPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPassActionPerformed
         // TODO add your handling code here:
@@ -430,7 +431,6 @@ public class Resident_Account extends javax.swing.JFrame {
 //                        // Second insert query failed
 //                        JOptionPane.showMessageDialog(this, "Failed to insert resident bills.");
 //                    }
-
                 } else {
                     // Registration failed
                     JOptionPane.showMessageDialog(this, "Registration failed. Please try again.");
@@ -445,6 +445,13 @@ public class Resident_Account extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_RegisterActionPerformed
+
+    private void guardRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardRegisterActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Guard_Account account = new Guard_Account(userId);
+        account.setVisible(true);
+    }//GEN-LAST:event_guardRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,8 +482,10 @@ public class Resident_Account extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            int userId = 123;
+            
             public void run() {
-                new Resident_Account().setVisible(true);
+                new Resident_Account(userId).setVisible(true);
             }
         });
     }
@@ -484,7 +493,6 @@ public class Resident_Account extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Account;
     private javax.swing.JPanel Background;
-    private javax.swing.JButton GuardAccount;
     private javax.swing.JLabel Name;
     private javax.swing.JPanel Namebg;
     private javax.swing.JButton Payment;
@@ -497,6 +505,7 @@ public class Resident_Account extends javax.swing.JFrame {
     private javax.swing.JPanel Second2;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel UpperWhiteBar;
+    private javax.swing.JButton guardRegister;
     private javax.swing.JPasswordField insertPass;
     private javax.swing.JTextField insertUnitNo;
     private javax.swing.JLabel jLabel2;

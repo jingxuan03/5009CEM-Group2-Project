@@ -218,14 +218,15 @@ public class Manager_Login extends javax.swing.JFrame {
             String managerPassword = editManagerPass.getText();
 
             // Retrieve the hashed password from the Manager table
-            String getPasswordQuery = "SELECT password FROM manager WHERE id = ?";
+            String getPasswordQuery = "SELECT password, id FROM manager WHERE id = ?";
             PreparedStatement getPasswordStatement = connection.prepareStatement(getPasswordQuery);
             getPasswordStatement.setString(1, id);
             ResultSet passwordResult = getPasswordStatement.executeQuery();
 
             if (passwordResult.next()) {
                 String storedPassword = passwordResult.getString("password");
-
+                int userId = passwordResult.getInt("id");
+                 
                 // Hash the entered password
                 MessageDigest md = MessageDigest.getInstance("MD5");
                 md.update(managerPassword.getBytes());
@@ -239,7 +240,10 @@ public class Manager_Login extends javax.swing.JFrame {
                 if (hashedPassword.toString().equals(storedPassword)) {
                     // Passwords match, proceed to the home page
                     //JOptionPane.showMessageDialog(this, "Login Successfully.");
-                    loginSuccessMessage.setText("Login successfully");
+                    //loginSuccessMessage.setText("Login successfully");
+                    dispose();
+                    Manager_Home obj = new Manager_Home(userId);
+                    obj.show();
                 } else {
                     // Passwords don't match
                     loginFailureMessage.setText("Login failed");

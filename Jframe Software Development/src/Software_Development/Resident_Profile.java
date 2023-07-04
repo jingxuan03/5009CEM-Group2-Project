@@ -608,15 +608,15 @@ public class Resident_Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_home1ActionPerformed
 
     private void home3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home3ActionPerformed
-        //Resident_Forum obj= new Resident_Forum();// obj created for class Second()
-        //obj.setVisible(true); // Open the Second.java window
-        //dispose(); // Close the First.java window
+        Resident_Forum obj= new Resident_Forum(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home3ActionPerformed
 
     private void home2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home2ActionPerformed
-        //Resident_Bills obj= new Resident_Bills();// obj created for class Second()
-        //obj.setVisible(true); // Open the Second.java window
-        //dispose(); // Close the First.java window
+        Resident_Bills obj= new Resident_Bills(userId);// obj created for class Second()
+        obj.setVisible(true); // Open the Second.java window
+        dispose(); // Close the First.java window
     }//GEN-LAST:event_home2ActionPerformed
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
